@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './Note.css';
+import App from './App';
 /*
 function Welcome(props) {
     alert("a")
@@ -11,14 +12,38 @@ ReactDOM.render (
     elem,document.getElementById('container')
 
 ); */
+/*
 
-function Note() {
+function Note(props) {    
     return (
       <div class="note">
-        some notes
+        <p>{props.name}</p>
       </div>
     );
 
   }
+  */
+function NotesList(props) {
+    const notes = props.notes;
+    const listNotes = notes.map((elem) =>
+        <li>
+        <div class="note">
+            {elem}
+        </div>
+        </li>
+    );
+    return ( 
+        <ul>{listNotes}</ul>
+    );
+}
 
-  export default Note;
+  const rootElement = document.getElementById("root");
+  ReactDOM.render(<App />, rootElement);
+  
+  const notes =["note1","note2","note3","note4","note5"];
+    ReactDOM.render (
+        <NotesList notes={notes}/>,
+        document.getElementById("container")
+    );
+
+

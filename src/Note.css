@@ -4,3 +4,7 @@
     background-color: beige;
     height: 200px;
 }
+li {
+    list-style-type: none;
+    display: inline-block;
+}
