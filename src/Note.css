@@ -1,11 +1,18 @@
+.note-settings{
+    margin-right:8px;
+    height:140px;
+    border: 2px solid grey;
+    background-color: #fff5d9;
+}
 .note {
     width: 100px;
-    border: 2px solid grey;
+
     background-color: #fff5d9;
     height: 100px;
     border-radius: 3%;
-    margin-right:8px;
+    white-space: normal;
     padding:5px;
+    position: relative;
 }
 li {
     list-style-type: none;
@@ -15,3 +22,33 @@ ul {
     padding:0;
     list-style-type: none;
 }
+input[name="delete"] {
+    display:block;
+    background-image: url('cross.png');
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position: center;
+    width:10px;
+    height:25px;
+    float:right;
+    border:1px solid orangered;
+}
+input[name="edit"] {
+    display:block;
+    background-image: url('edit.png');
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position: center;
+    width:10px;
+    height:25px;
+    float:right;
+    border:1px solid rgb(221, 197, 153);
+}
+input[name="edit"]:focus {
+    border: 3px solid rgb(145, 145, 145);
+  }
+  input[name="delete"]:focus {
+    border: 3px solid rgb(145, 145, 145);
+  }
