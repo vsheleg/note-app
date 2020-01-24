@@ -1,10 +1,11 @@
 .note {
-    width: 200px;
+    width: 100px;
     border: 2px solid grey;
     background-color: beige;
-    height: 200px;
+    height: 100px;
 }
 li {
     list-style-type: none;
     display: inline-block;
+    margin-right: 5px;
 }
