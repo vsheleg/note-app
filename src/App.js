@@ -71,29 +71,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-/* 
-    let result = fetch("http://localhost:3001/notes")
-      .then(response => response.json())
-      //.then(result => console.log(result))
-      //.then(result => (obj.notes = result))
-      .then(response => {
-        console.log(response);
-        obj.notes = response;
-       // this.setState(obj);
-        return response;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-      
-    fetch("http://localhost:3001/notes/note1")
-      .then(response => response.json())
-      .then(response => {
-        obj.notes = response;
-        //this.setState(obj);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-*/
