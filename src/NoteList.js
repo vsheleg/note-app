@@ -5,7 +5,7 @@ import Note from "./Note.js";
 
 function NoteList(props) {
   const notes = props.notes;
-  console.log(props);
+  //console.log(props);
   //  function delete(note) {
   // new notes
 

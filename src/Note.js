@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+let fetchUrl = require("fetch").fetchUrl;
 /*function Note(props) {
   const note = props.note;
   const 
@@ -22,6 +23,14 @@ class Note extends React.Component {
     super(props);
     this.state = { val: false };
   }
+  componentDidMount = () => {};
+
+  componentDidUpdate = () => {
+    console.log("note updated");
+  };
+  componentWillUnmount = () => {
+    console.log("note deleted");
+  };
 
   deleteItem = () => {
     this.props.onDelete(this.props.note);
@@ -29,7 +38,6 @@ class Note extends React.Component {
   editItem = () => {
     if (this.state.val) {
       let elem = document.getElementById("editNote").value;
-      console.log(this.props);
       this.props.onEdit(this.props.note, elem);
     } else {
       this.setState({ val: true });

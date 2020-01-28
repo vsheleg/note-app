@@ -52,3 +52,8 @@ input[name="edit"]:focus {
   input[name="delete"]:focus {
     border: 3px solid rgb(145, 145, 145);
   }
+  #editNote {    
+      float: right;
+      display: block;
+      width:40px;
+  }
