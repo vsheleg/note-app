@@ -1,30 +1,28 @@
 import React from "react";
-let fetchUrl = require("fetch").fetchUrl;
-/*function Note(props) {
-  const note = props.note;
-  const 
-  function deleteItem() {
-    props.onDelete(note);
-  }
-  function editItem() {
-    console.log("edit");
-  }
-  return (
-    <div className="note-settings">
-      <div className="note">{note}</div>
-      <input type="button" onClick={deleteItem} name="delete"></input>
-      <input type="button" onClick={editItem} name="edit"></input>
-    </div>
-  );
-}*/
 
 class Note extends React.Component {
   constructor(props) {
     super(props);
     this.state = { val: false };
   }
-  componentDidMount = () => {};
-
+  componentDidMount = () => {
+    fetch(
+      "http://localhost:3001/notes/" +
+        this.props.note.substring(0, this.props.note.length - 4)
+    )
+      .then(response => response.json())
+      .then(response => {
+        this.props.onEdit(this.props.note, response.join("")); //here
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+  /* 
+  updateValue = response => {
+     let result = fetch("http://localhost:3001/notes"+this.props.note+"/editFile/"+text)
+  };
+*/
   componentDidUpdate = () => {
     console.log("note updated");
   };

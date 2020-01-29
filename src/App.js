@@ -8,40 +8,29 @@ class App extends React.Component {
     super(props);
     this.state = { notes: ["note1", "note2", "note3", "note4", "note5"] };
   }
+  //TO-DO fetch in note, pass to note title
+  //edit + add
+
   componentDidMount = () => {
     let obj = { notes: [] };
-
     let result = fetch("http://localhost:3001/notes")
       .then(response => response.json())
-      //.then(result => console.log(result))
-      //.then(result => (obj.notes = result))
       .then(response => {
-        for (let i = 0; i < response.length; i++) {
-          fetch(
-            "http://localhost:3001/notes/" +
-              response[i].substring(0, response[i].length - 4)
-          )
-            .then(response => response.json())
-            .then(response => {
-              obj.notes.push(response.join(""));
-              this.setState(obj);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-        }
-        return response;
+        obj.notes = response;
+        this.setState(obj);
       })
       .catch(function(error) {
         console.log(error);
       });
   };
+
   componentDidUpdate = () => {
     console.log("main is updated");
   };
   componentWillUnmount = () => {
     console.log("component was unmounted");
   };
+
   deleteNote = note => {
     let newNotes = this.state.notes.filter(elem => elem !== note);
     let newObj = { notes: newNotes };
@@ -51,11 +40,18 @@ class App extends React.Component {
     let newNotes = this.state.notes.concat(note);
     let newObj = { notes: newNotes };
     this.setState(newObj);
+    let result = fetch("http://localhost:3001/notes/addFile/" + note)
+      .then(response => response.json())
+      .then(response => {})
+      .catch(function(error) {
+        console.log(error);
+      });
   };
   editNote = (note, val) => {
     let newNotes = this.state.notes.map(elem => (elem === note ? val : elem));
     let newObj = { notes: newNotes };
     this.setState(newObj);
+    // let result  = fetch("http://localhost:3001/notes/addFile/")
   };
   render() {
     return (
