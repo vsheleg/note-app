@@ -3,16 +3,14 @@ import React from "react";
 class Note extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { val: false };
+    this.state = { val: false, content: "", loading: false };
   }
   componentDidMount = () => {
-    fetch(
-      "http://localhost:3001/notes/" +
-        this.props.note.substring(0, this.props.note.length - 4)
-    )
+    fetch("http://localhost:3001/notes/" + this.props.note)
       .then(response => response.json())
       .then(response => {
-        this.props.onEdit(this.props.note, response.join("")); //here
+        let obj = { val: false, content: response.join(""), loading: true };
+        this.setState(obj);
       })
       .catch(function(error) {
         console.log(error);
@@ -36,7 +34,20 @@ class Note extends React.Component {
   editItem = () => {
     if (this.state.val) {
       let elem = document.getElementById("editNote").value;
-      this.props.onEdit(this.props.note, elem);
+      this.setState({
+        content: elem
+      });
+      fetch(
+        "http://localhost:3001/notes/" +
+          this.props.note.slice(0, -4) +
+          "/editFile/" +
+          elem
+      )
+        .then(response => response.json())
+        .then(response => {})
+        .catch(function(error) {
+          console.log(error);
+        });
     } else {
       this.setState({ val: true });
     }
@@ -44,7 +55,7 @@ class Note extends React.Component {
   render() {
     return (
       <div className="note-settings">
-        <div className="note">{this.props.note}</div>
+        <div className="note">{this.state.content}</div>
         <input type="button" onClick={this.deleteItem} name="delete"></input>
         <input type="button" onClick={this.editItem} name="edit"></input>
         {this.state.val ? (

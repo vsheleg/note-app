@@ -15,24 +15,36 @@ const server = http.createServer((req, res) => {
   // res.setHeader("Content-Type", "text/plain");
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Request-Method", "POST");
   let urlParts = url.parse(req.url, true);
   let urlPathName = urlParts.pathname;
-  if (urlPathName.match(/\/notes\/addFile\/.+/)) {
+  /*if (urlPathName.match(/\/notes\/addFile\/.+/)) {
+    console.log(urlPathName.slice(15));
+    addFileController.addFile("fl/file3.txt", urlPathName.slice(15));
+  }
+*/
+  if (urlPathName.match(/\/notes\/addFile/)) {
     console.log(urlPathName.slice(15));
     addFileController.addFile("fl/file3.txt", urlPathName.slice(15));
   }
 
-  if (urlPathName.match(/\/notes\/file1\/editFile\/.+/)) {
+  if (urlPathName.match(/\/notes\/file\d\/editFile\/.+/)) {
     console.log("this " + urlPathName.slice(22));
-    addFileController.addFile(file1, urlPathName.slice(22));
+    let file = urlPathName.slice(7, 12);
+    addFileController.addFile("fl/" + file + ".txt", urlPathName.slice(22));
+  }
+
+  if (urlPathName.match(/\/notes\/file\d/)) {
+    let file = "fl/" + urlPathName.slice(7, 12) + ".txt";
+    console.log("file is " + file);
+    let result = JSON.stringify(fileController.readData(file));
+    res.end(result);
   }
 
   let obj = {
     "/data": "Hello World",
     "/": " ",
-    "/notes": JSON.stringify(folderController.getFiles(folder)),
-    "/notes/file1": JSON.stringify(fileController.readData(file1)),
-    "/notes/file2": JSON.stringify(fileController.readData(file2))
+    "/notes": JSON.stringify(folderController.getFiles(folder))
   };
 
   res.end(obj[urlPathName]);
