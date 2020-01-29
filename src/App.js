@@ -2,6 +2,7 @@ import React from "react";
 import NoteList from "./NoteList";
 import Button from "./Button";
 import "./App.css";
+const locUrl = "http://localhost:3001/notes";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends React.Component {
 
   componentDidMount = () => {
     let obj = { notes: [] };
-    let result = fetch("http://localhost:3001/notes")
+
+    let result = fetch(locUrl)
       .then(response => response.json())
       .then(response => {
         obj.notes = response;
@@ -38,12 +40,14 @@ class App extends React.Component {
   };
   addNote = note => {
     //let result = fetch("http://localhost:3001/notes/addFile/" + note,{
-    let result = fetch("http://localhost:3001/notes/addFile/", {
+    let result = fetch(locUrl + "/addFile/", {
       method: "POST",
+      status: 200,
       headers: {
-        "Content-Type": "application/json;charset=utf-8"
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(note)
+      //body: JSON.stringify(note)
+      body: "foo=bar&test=1"
     })
       .then(response => response.json())
       .then(response => {
@@ -52,7 +56,7 @@ class App extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
-    let result1 = fetch("http://localhost:3001/notes")
+    let result1 = fetch(locUrl)
       .then(response => response.json())
       .then(response => {
         this.setState({ notes: response });

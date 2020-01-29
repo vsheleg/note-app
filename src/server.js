@@ -15,8 +15,18 @@ const server = http.createServer((req, res) => {
   // res.setHeader("Content-Type", "text/plain");
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.setHeader("Access-Control-Request-Method", "POST");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Request-Method", "*");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  if (req.method === "OPTIONS") {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+  // res.setHeader("Access-Control-Request-Method", "POST");
   let urlParts = url.parse(req.url, true);
+
   let urlPathName = urlParts.pathname;
   /*if (urlPathName.match(/\/notes\/addFile\/.+/)) {
     console.log(urlPathName.slice(15));

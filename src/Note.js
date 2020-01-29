@@ -1,4 +1,5 @@
 import React from "react";
+const locUrl = "http://localhost:3001/notes/";
 
 class Note extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class Note extends React.Component {
     this.state = { val: false, content: "", loading: false };
   }
   componentDidMount = () => {
-    fetch("http://localhost:3001/notes/" + this.props.note)
+    fetch(locUrl + this.props.note)
       .then(response => response.json())
       .then(response => {
         let obj = { val: false, content: response.join(""), loading: true };
@@ -37,12 +38,7 @@ class Note extends React.Component {
       this.setState({
         content: elem
       });
-      fetch(
-        "http://localhost:3001/notes/" +
-          this.props.note.slice(0, -4) +
-          "/editFile/" +
-          elem
-      )
+      fetch(locUrl + this.props.note.slice(0, -4) + "/editFile/" + elem)
         .then(response => response.json())
         .then(response => {})
         .catch(function(error) {
