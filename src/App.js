@@ -7,7 +7,7 @@ const locUrl = "http://localhost:3001/notes";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { notes: ["note1", "note2", "note3", "note4", "note5"] };
+    this.state = { notes: [] };
   }
   updateItems = () => {
     let obj = { notes: [] };
@@ -16,6 +16,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then(response => {
         obj.notes = response;
+        console.log(response);
         this.setState(obj);
       })
       .catch(function(error) {

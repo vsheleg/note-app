@@ -5,12 +5,10 @@ const fileController = require("./controllers/fileController.js");
 const folderController = require("./controllers/folderController.js");
 const addFileController = require("./controllers/addFileController.js");
 const deleteController = require("./controllers/deleteController.js");
+const generateNameController = require("./controllers/generateNameController.js");
 const hostname = "localhost";
 const port = 3001;
 const folder = "fl";
-const file1 = "fl/file1.txt";
-const file2 = "fl/file2.txt";
-const { parse } = require("querystring");
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -34,20 +32,20 @@ const server = http.createServer((req, res) => {
   if (urlPathName.match(/notes\/addFile/)) {
     if (req.method === "POST") {
       let body = "";
-      /*req.on("data", chunk => {
-        body += chunk.toString();
-      });*/
       req.on("data", function(data) {
         body += data.toString();
         console.log(data);
       });
       req.on("end", () => {
         console.log(body);
-        addFileController.addFile("fl/file4.txt", body);
+        let path = generateNameController.generateName();
+        console.log("path is " + path);
+        addFileController.addFile(path, body);
         res.end(body);
       });
     }
   }
+
   urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16); //delete  and .txt extension
   if (urlPathName.match(/\/notes\/file\d\/editFile\/.+/)) {
     addFileController.addFile(file, urlPathName.slice(22));
@@ -56,8 +54,9 @@ const server = http.createServer((req, res) => {
     deleteController.delete(file.slice(0, -1));
     res.end("");
   }
-  if (urlPathName.match(/\/notes\/file\d\/read/)) {
-    urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16);
+  if (urlPathName.match(/\/notes\/file\d+\/read/)) {
+    //delete file
+    //return match
     let result = JSON.stringify(fileController.readData(file));
     res.end(result);
   }
