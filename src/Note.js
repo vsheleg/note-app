@@ -7,7 +7,8 @@ class Note extends React.Component {
     this.state = { val: false, content: "", loading: false };
   }
   componentDidMount = () => {
-    fetch(locUrl + this.props.note)
+    console.log(this.props.note + " now");
+    fetch(locUrl + this.props.note + "/read")
       .then(response => response.json())
       .then(response => {
         let obj = { val: false, content: response.join(""), loading: true };
@@ -17,11 +18,6 @@ class Note extends React.Component {
         console.log(error);
       });
   };
-  /* 
-  updateValue = response => {
-     let result = fetch("http://localhost:3001/notes"+this.props.note+"/editFile/"+text)
-  };
-*/
   componentDidUpdate = () => {
     console.log("note updated");
   };
@@ -32,18 +28,22 @@ class Note extends React.Component {
   deleteItem = () => {
     this.props.onDelete(this.props.note);
   };
+
   editItem = () => {
     if (this.state.val) {
       let elem = document.getElementById("editNote").value;
       this.setState({
         content: elem
       });
-      fetch(locUrl + this.props.note.slice(0, -4) + "/editFile/" + elem)
+      fetch(locUrl + this.props.note + "/editFile/" + elem)
         .then(response => response.json())
         .then(response => {})
         .catch(function(error) {
           console.log(error);
         });
+      this.setState({
+        val: false
+      });
     } else {
       this.setState({ val: true });
     }

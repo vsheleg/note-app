@@ -9,9 +9,6 @@ class App extends React.Component {
     super(props);
     this.state = { notes: ["note1", "note2", "note3", "note4", "note5"] };
   }
-  //TO-DO fetch in note, pass to note title
-  //edit + add
-
   componentDidMount = () => {
     let obj = { notes: [] };
 
@@ -34,20 +31,25 @@ class App extends React.Component {
   };
 
   deleteNote = note => {
+    fetch(locUrl + "/" + note + "/delete")
+      .then(response => response.json())
+      .then(response => {})
+      .catch(function(error) {
+        console.log(error);
+      });
     let newNotes = this.state.notes.filter(elem => elem !== note);
     let newObj = { notes: newNotes };
+    alert(newObj.notes);
     this.setState(newObj);
   };
   addNote = note => {
-    //let result = fetch("http://localhost:3001/notes/addFile/" + note,{
-    let result = fetch(locUrl + "/addFile/", {
+    fetch(locUrl + "/addFile", {
       method: "POST",
       status: 200,
       headers: {
         "Content-Type": "application/json"
       },
-      //body: JSON.stringify(note)
-      body: "foo=bar&test=1"
+      body: JSON.stringify({ a: 7, str: "here is content" })
     })
       .then(response => response.json())
       .then(response => {
@@ -56,7 +58,8 @@ class App extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
-    let result1 = fetch(locUrl)
+
+    /* let result1 = fetch(locUrl)
       .then(response => response.json())
       .then(response => {
         this.setState({ notes: response });
@@ -64,6 +67,7 @@ class App extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
+      */
   };
 
   render() {

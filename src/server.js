@@ -4,6 +4,7 @@ const fs = require("fs");
 const fileController = require("./controllers/fileController.js");
 const folderController = require("./controllers/folderController.js");
 const addFileController = require("./controllers/addFileController.js");
+const deleteController = require("./controllers/deleteController.js");
 const hostname = "localhost";
 const port = 3001;
 const folder = "fl";
@@ -24,35 +25,31 @@ const server = http.createServer((req, res) => {
     res.end();
     return;
   }
-  // res.setHeader("Access-Control-Request-Method", "POST");
   let urlParts = url.parse(req.url, true);
-
   let urlPathName = urlParts.pathname;
-  /*if (urlPathName.match(/\/notes\/addFile\/.+/)) {
-    console.log(urlPathName.slice(15));
-    addFileController.addFile("fl/file3.txt", urlPathName.slice(15));
-  }
-*/
-  if (urlPathName.match(/\/notes\/addFile/)) {
-    console.log(urlPathName.slice(15));
-    addFileController.addFile("fl/file3.txt", urlPathName.slice(15));
-  }
+  console.log(urlPathName);
+  let file = "fl/" + urlPathName.slice(7, 12) + ".txt/";
 
+  if (urlPathName.match(/notes\/addFile/)) {
+    console.log(req.body);
+    addFileController.addFile("fl/file4.txt", "text");
+  }
+  urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16); //delete  and .txt extension
   if (urlPathName.match(/\/notes\/file\d\/editFile\/.+/)) {
-    console.log("this " + urlPathName.slice(22));
-    let file = urlPathName.slice(7, 12);
-    addFileController.addFile("fl/" + file + ".txt", urlPathName.slice(22));
+    addFileController.addFile(file, urlPathName.slice(22));
   }
-
-  if (urlPathName.match(/\/notes\/file\d/)) {
-    let file = "fl/" + urlPathName.slice(7, 12) + ".txt";
-    console.log("file is " + file);
+  if (urlPathName.match(/\/notes\/file\d\/delete/)) {
+    deleteController.delete(file.slice(0, -1));
+    res.end("");
+  }
+  if (urlPathName.match(/\/notes\/file\d\/read/)) {
+    console.log("stop " + urlPathName);
+    urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16);
     let result = JSON.stringify(fileController.readData(file));
     res.end(result);
   }
 
   let obj = {
-    "/data": "Hello World",
     "/": " ",
     "/notes": JSON.stringify(folderController.getFiles(folder))
   };
