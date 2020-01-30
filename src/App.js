@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = { notes: ["note1", "note2", "note3", "note4", "note5"] };
   }
-  componentDidMount = () => {
+  updateItems = () => {
     let obj = { notes: [] };
 
     let result = fetch(locUrl)
@@ -21,6 +21,10 @@ class App extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
+  };
+
+  componentDidMount = () => {
+    this.updateItems();
   };
 
   componentDidUpdate = () => {
@@ -39,35 +43,10 @@ class App extends React.Component {
       });
     let newNotes = this.state.notes.filter(elem => elem !== note);
     let newObj = { notes: newNotes };
-    alert(newObj.notes);
     this.setState(newObj);
   };
   addNote = note => {
-    fetch(locUrl + "/addFile", {
-      method: "POST",
-      status: 200,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ a: 7, str: "here is content" })
-    })
-      .then(response => response.json())
-      .then(response => {
-        console.log("requested data ", response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-
-    /* let result1 = fetch(locUrl)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({ notes: response });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-      */
+    this.updateItems();
   };
 
   render() {

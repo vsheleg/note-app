@@ -10,6 +10,7 @@ const port = 3001;
 const folder = "fl";
 const file1 = "fl/file1.txt";
 const file2 = "fl/file2.txt";
+const { parse } = require("querystring");
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -31,8 +32,21 @@ const server = http.createServer((req, res) => {
   let file = "fl/" + urlPathName.slice(7, 12) + ".txt/";
 
   if (urlPathName.match(/notes\/addFile/)) {
-    console.log(req.body);
-    addFileController.addFile("fl/file4.txt", "text");
+    if (req.method === "POST") {
+      let body = "";
+      /*req.on("data", chunk => {
+        body += chunk.toString();
+      });*/
+      req.on("data", function(data) {
+        body += data.toString();
+        console.log(data);
+      });
+      req.on("end", () => {
+        console.log(body);
+        addFileController.addFile("fl/file4.txt", body);
+        res.end(body);
+      });
+    }
   }
   urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16); //delete  and .txt extension
   if (urlPathName.match(/\/notes\/file\d\/editFile\/.+/)) {
@@ -43,7 +57,6 @@ const server = http.createServer((req, res) => {
     res.end("");
   }
   if (urlPathName.match(/\/notes\/file\d\/read/)) {
-    console.log("stop " + urlPathName);
     urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16);
     let result = JSON.stringify(fileController.readData(file));
     res.end(result);
