@@ -5,16 +5,19 @@
     background-color: #fff5d9;
 }
 .note {
+    word-wrap: break-word;
     width: 100px;
     background-color: #fff5d9;
     height: 100px;
     border-radius: 3%;
     white-space: normal;
     padding:5px;
-    position: relative;
+    /*position: relative;*/
 }
+
 li {
-    list-style-type: none;
+    width:160px;
+    list-style-type: none;    
     display: inline-block;
 }
 ul {
@@ -40,7 +43,7 @@ input[name="edit"] {
     background-repeat: no-repeat;
     background-size: 10px 10px;
     background-position: center;
-    width:10px;
+    width:20px;
     height:25px;
     float:right;
     border:1px solid rgb(221, 197, 153);
@@ -51,8 +54,10 @@ input[name="edit"]:focus {
   input[name="delete"]:focus {
     border: 3px solid rgb(145, 145, 145);
   }
+  
   #editNote {    
       float: right;
       display: block;
-      width:40px;
+      width:60px;
+      position: relative;
   }

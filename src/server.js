@@ -26,18 +26,16 @@ const server = http.createServer((req, res) => {
   }
   let urlParts = url.parse(req.url, true);
   let urlPathName = urlParts.pathname;
+
   console.log(urlPathName);
-  let file = "fl/" + urlPathName.slice(7, 12) + ".txt/";
 
   if (urlPathName.match(/notes\/addFile/)) {
     if (req.method === "POST") {
       let body = "";
       req.on("data", function(data) {
         body += data.toString();
-        console.log(data);
       });
       req.on("end", () => {
-        console.log(body);
         let path = generateNameController.generateName();
         console.log("path is " + path);
         addFileController.addFile(path, body);
@@ -46,17 +44,19 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  urlPathName = urlPathName.slice(0, 12) + urlPathName.slice(16); //delete  and .txt extension
-  if (urlPathName.match(/\/notes\/file\d\/editFile\/.+/)) {
+  if (urlPathName.match(/\/notes\/\d+.txt\/editFile\/.+/)) {
+    let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/editFile/)[1];
     addFileController.addFile(file, urlPathName.slice(22));
   }
-  if (urlPathName.match(/\/notes\/file\d\/delete/)) {
-    deleteController.delete(file.slice(0, -1));
+  if (urlPathName.match(/\/notes\/\d+.txt\/delete/)) {
+    let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/delete/)[1];
+    deleteController.delete(file);
     res.end("");
   }
-  if (urlPathName.match(/\/notes\/file\d+\/read/)) {
+  if (urlPathName.match(/\/notes\/\d+.txt\/read/)) {
     //delete file
     //return match
+    let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/read/)[1];
     let result = JSON.stringify(fileController.readData(file));
     res.end(result);
   }

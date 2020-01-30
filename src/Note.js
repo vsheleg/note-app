@@ -6,9 +6,9 @@ class Note extends React.Component {
     super(props);
     this.state = { val: false, content: "", loading: false };
   }
-  //TODO show title
+
   componentDidMount = () => {
-    console.log(this.props.note + " now");
+    console.log(locUrl + this.props.note + "/read");
     fetch(locUrl + this.props.note + "/read")
       .then(response => response.json())
       .then(response => {

@@ -5,12 +5,9 @@ import Note from "./Note.js";
 
 function NoteList(props) {
   const notes = props.notes;
-  //console.log(props);
-  //  function delete(note) {
-  // new notes
-
   const listNotes = notes.map(elem => (
     <li key={elem}>
+      <span>{elem}</span>
       <Note note={elem} onDelete={props.onDelete} onEdit={props.onEdit} />
     </li>
   ));
