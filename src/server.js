@@ -1,15 +1,10 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
-const fileController = require("./controllers/fileController.js");
-const folderController = require("./controllers/folderController.js");
-const addFileController = require("./controllers/addFileController.js");
-const deleteController = require("./controllers/deleteController.js");
-const generateNameController = require("./controllers/generateNameController.js");
+const handleEndpoint = require("./handleEndpoint.js");
+const folderController = require("./noteServices/folderController.js");
 const hostname = "localhost";
 const port = 3001;
-const folder = "fl";
-
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   // res.setHeader("Content-Type", "text/plain");
@@ -24,11 +19,14 @@ const server = http.createServer((req, res) => {
     res.end();
     return;
   }
-  let urlParts = url.parse(req.url, true);
-  let urlPathName = urlParts.pathname;
+  res.end(JSON.stringify(handleEndpoint.findEndPoint(req, res)));
+});
 
-  console.log(urlPathName);
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
 
+/*
   if (urlPathName.match(/notes\/addFile/)) {
     if (req.method === "POST") {
       let body = "";
@@ -54,21 +52,8 @@ const server = http.createServer((req, res) => {
     res.end("");
   }
   if (urlPathName.match(/\/notes\/\d+.txt\/read/)) {
-    //delete file
-    //return match
     let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/read/)[1];
     let result = JSON.stringify(fileController.readData(file));
     res.end(result);
   }
-
-  let obj = {
-    "/": " ",
-    "/notes": JSON.stringify(folderController.getFiles(folder))
-  };
-
-  res.end(obj[urlPathName]);
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+*/

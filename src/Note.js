@@ -4,7 +4,7 @@ const locUrl = "http://localhost:3001/notes/";
 class Note extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { val: false, content: "", loading: false };
+    this.state = { val: false, content: "h", loading: false };
   }
 
   componentDidMount = () => {
@@ -12,6 +12,7 @@ class Note extends React.Component {
     fetch(locUrl + this.props.note + "/read")
       .then(response => response.json())
       .then(response => {
+        console.log("res" + response);
         let obj = { val: false, content: response.join(""), loading: true };
         this.setState(obj);
       })
