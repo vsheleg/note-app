@@ -10,8 +10,8 @@ let urlStart = /\/notes\/(\d+).txt/;
 exports.findEndPoint = function(req, res) {
   let urlParts = url.parse(req.url, true);
   const urlPath = urlParts.pathname;
+
   let obj = new Map();
-  let regexpDelete = /\/notes\/\d+.txt\/delete/;
   obj.set(/\/notes\/\d+.txt\/delete/, function() {
     const file = getNameOfFile(urlPath);
     deleteNote.deleteN(file);
