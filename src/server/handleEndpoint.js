@@ -1,10 +1,8 @@
 //noteservices
 const fs = require("fs");
 const url = require("url");
-const addNote = require("./noteService/addNote");
-const deleteNote = require("./noteService/deleteNote");
 
-//const noteServices = require("./noteService/");
+const noteServices = require("./noteService/index");
 
 exports.findEndPoint = function(req, res) {
   let urlParts = url.parse(req.url, true);
@@ -12,13 +10,13 @@ exports.findEndPoint = function(req, res) {
 
   let obj = new Map();
   obj.set(/\/notes\/\d+.txt\/delete/, function() {
-    return deleteNote(urlPath);
+    return noteServices.deleteNote(urlPath);
   });
   obj.set(/\/notes\/\d+.txt\/read/, function() {
     return readNote(urlPath);
   });
   obj.set(/notes\/addFile/, function() {
-    return addNote(req, res);
+    return noteServices.addNote(req, res);
   });
 
   obj.set(/\/notes/, function() {
