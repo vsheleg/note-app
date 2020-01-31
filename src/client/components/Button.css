@@ -1,0 +1,12 @@
+
+input[type=text] {
+    padding: 6px 12px;
+
+  }
+input[type=button] {
+    padding: 6px 12px;
+
+}
+input[type=text]:focus {
+    border: 3px solid rgb(145, 145, 145);
+  }
