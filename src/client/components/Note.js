@@ -37,9 +37,12 @@ class Note extends React.Component {
       this.setState({
         content: elem
       });
-      /*
-      alert(locUrl + "/" + this.props.note + "/edit");
-      fetch(locUrl + "/" + this.props.note + "/edit", {
+      this.setState({
+        val: false
+      });
+
+      console.log(locUrl + this.props.note + "/edit");
+      fetch(locUrl + this.props.note + "/edit", {
         method: "POST",
         status: 200,
         headers: {
@@ -49,15 +52,11 @@ class Note extends React.Component {
       })
         .then(response => response.json())
         .then(response => {
-          console.log("here");
           console.log(response);
         })
         .catch(function(error) {
           console.log(error);
-        });*/
-      this.setState({
-        val: false
-      });
+        });
     } else {
       this.setState({ val: true });
     }

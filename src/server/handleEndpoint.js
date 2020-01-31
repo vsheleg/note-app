@@ -7,10 +7,14 @@ const noteServices = require("./noteService/index");
 exports.findEndPoint = function(req, res) {
   let urlParts = url.parse(req.url, true);
   const urlPath = urlParts.pathname;
-
+  console.log(urlPath);
   let obj = new Map();
   obj.set(/\/notes\/\d+.txt\/delete/, function() {
     return noteServices.deleteNote(urlPath);
+  });
+  obj.set(/\/notes\/\d+.txt\/edit/, function() {
+    console.log("aa");
+    return noteServices.editNote(req, res, getNameOfFile(urlPath));
   });
   obj.set(/\/notes\/\d+.txt\/read/, function() {
     return readNote(urlPath);
