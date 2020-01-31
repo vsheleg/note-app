@@ -27,33 +27,8 @@ server.listen(port, hostname, () => {
 });
 
 /*
-  if (urlPathName.match(/notes\/addFile/)) {
-    if (req.method === "POST") {
-      let body = "";
-      req.on("data", function(data) {
-        body += data.toString();
-      });
-      req.on("end", () => {
-        let path = generateNameController.generateName();
-        console.log("path is " + path);
-        addFileController.addFile(path, body);
-        res.end(body);
-      });
-    }
-  }
-
   if (urlPathName.match(/\/notes\/\d+.txt\/editFile\/.+/)) {
     let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/editFile/)[1];
     addFileController.addFile(file, urlPathName.slice(22));
-  }
-  if (urlPathName.match(/\/notes\/\d+.txt\/delete/)) {
-    let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/delete/)[1];
-    deleteController.delete(file);
-    res.end("");
-  }
-  if (urlPathName.match(/\/notes\/\d+.txt\/read/)) {
-    let file = "fl/" + urlPathName.match(/\/notes\/(\d+.txt)\/read/)[1];
-    let result = JSON.stringify(fileController.readData(file));
-    res.end(result);
   }
 */
