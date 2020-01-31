@@ -1,5 +1,13 @@
 const fs = require("fs");
-exports.readData = function(path) {
-  let result = ["" + fs.readFileSync(path)];
+
+function getNameOfFile(path) {
+  let fileName = path.match(/\/notes\/(\d+).txt/)[1];
+  return "../client/fl/" + fileName + ".txt";
+}
+
+exports.readFile = function(path) {
+  let file = getNameOfFile(path);
+  console.log(file);
+  let result = ["" + fs.readFileSync(file)];
   return result;
 };

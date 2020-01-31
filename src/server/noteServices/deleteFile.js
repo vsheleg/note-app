@@ -1,5 +1,11 @@
 const fs = require("fs");
-exports.deleteN = function(path) {
-  console.log("delete");
-  return fs.unlinkSync(path);
+
+function getNameOfFile(path) {
+  let fileName = path.match(/\/notes\/(\d+).txt/)[1];
+  return "../client/fl/" + fileName + ".txt";
+}
+
+exports.deleteFile = function(path) {
+  let file = getNameOfFile(path);
+  return fs.unlinkSync(file);
 };

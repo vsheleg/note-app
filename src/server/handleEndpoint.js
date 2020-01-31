@@ -1,6 +1,6 @@
 //noteservices
 const getFilesinFolder = require("./noteServices/openFolder.js");
-const generateName = require("./noteServices/generateName.js");
+
 const deleteNote = require("./noteServices/deleteFile.js");
 const readNote = require("./noteServices/fileRead.js");
 const addNote = require("./noteServices/addFile.js");
@@ -13,27 +13,13 @@ exports.findEndPoint = function(req, res) {
 
   let obj = new Map();
   obj.set(/\/notes\/\d+.txt\/delete/, function() {
-    const file = getNameOfFile(urlPath);
-    deleteNote.deleteN(file);
-    return "";
+    deleteNote.deleteFile(urlPath);
   });
-
   obj.set(/\/notes\/\d+.txt\/read/, function() {
-    const file = getNameOfFile(urlPath);
-    return readNote.readData(file);
+    return readNote.readFile(urlPath);
   });
   obj.set(/notes\/addFile/, function() {
-    if (req.method === "POST") {
-      let body = "";
-      req.on("data", function(data) {
-        body += data.toString();
-      });
-      req.on("end", () => {
-        let path = generateName.generateName();
-        addNote.addFile(path, body);
-        return body;
-      });
-    }
+    return addNote.addFile(req, res);
   });
 
   obj.set(/\/notes/, function() {

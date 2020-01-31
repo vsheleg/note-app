@@ -37,9 +37,28 @@ class Note extends React.Component {
       this.setState({
         content: elem
       });
+      /*
       fetch(locUrl + this.props.note + "/editFile/" + elem)
         .then(response => response.json())
         .then(response => {})
+        .catch(function(error) {
+          console.log(error);
+        });
+        */
+      alert(locUrl + "/" + this.props.note + "/edit");
+      fetch(locUrl + "/" + this.props.note + "/edit", {
+        method: "POST",
+        status: 200,
+        headers: {
+          "Content-Type": "text/plain"
+        },
+        body: elem
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.log("here");
+          console.log(response);
+        })
         .catch(function(error) {
           console.log(error);
         });
