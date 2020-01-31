@@ -16,13 +16,11 @@ function Button(props) {
     })
       .then(response => response.json())
       .then(response => {
-        console.log("here");
         console.log(response);
       })
       .catch(function(error) {
         console.log(error);
       });
-    console.log(val);
     props.onAdd(val);
   }
   return (

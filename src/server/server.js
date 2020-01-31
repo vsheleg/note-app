@@ -19,7 +19,6 @@ const server = http.createServer((req, res) => {
     return;
   }
   let result = JSON.stringify(handleEndpoint.findEndPoint(req, res));
-  console.log("this is result " + result);
   res.end(result);
 });
 

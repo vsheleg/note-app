@@ -5,18 +5,6 @@ function getNotes(path) {
   return fs.readdirSync(path);
 }
 
-function generateName() {
-  const files = getNotes(folder);
-  let numbers = [];
-  for (let i = 0; i < files.length; i++) {
-    numbers.push(files[i].slice(0, -4));
-  }
-  numbers = numbers.sort();
-  let newName = Math.max(...numbers) + 1;
-  newName = "../client/fl/" + newName + ".txt";
-  return newName;
-}
-
 module.exports = function addNote(req, res) {
   let path = generateName();
   if (req.method === "POST") {
@@ -33,3 +21,14 @@ module.exports = function addNote(req, res) {
     });
   }
 };
+function generateName() {
+  const files = getNotes(folder);
+  let numbers = [];
+  for (let i = 0; i < files.length; i++) {
+    numbers.push(files[i].slice(0, -4));
+  }
+  numbers = numbers.sort();
+  let newName = Math.max(...numbers) + 1;
+  newName = "../client/fl/" + newName + ".txt";
+  return newName;
+}

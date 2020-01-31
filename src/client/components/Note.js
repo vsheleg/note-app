@@ -38,13 +38,6 @@ class Note extends React.Component {
         content: elem
       });
       /*
-      fetch(locUrl + this.props.note + "/editFile/" + elem)
-        .then(response => response.json())
-        .then(response => {})
-        .catch(function(error) {
-          console.log(error);
-        });
-        */
       alert(locUrl + "/" + this.props.note + "/edit");
       fetch(locUrl + "/" + this.props.note + "/edit", {
         method: "POST",
@@ -61,7 +54,7 @@ class Note extends React.Component {
         })
         .catch(function(error) {
           console.log(error);
-        });
+        });*/
       this.setState({
         val: false
       });
