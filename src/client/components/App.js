@@ -49,7 +49,6 @@ class App extends React.Component {
   addNote = note => {
     this.updateItems();
   };
-
   render() {
     return (
       <div id="container">
