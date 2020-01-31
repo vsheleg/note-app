@@ -5,7 +5,7 @@ function getNameOfFile(path) {
   return "../client/fl/" + fileName + ".txt";
 }
 
-exports.deleteFile = function(path) {
+module.exports = function deleteNote(path) {
   let file = getNameOfFile(path);
   return fs.unlinkSync(file);
 };

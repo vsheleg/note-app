@@ -1,11 +1,10 @@
 //noteservices
-const getFilesinFolder = require("./noteServices/openFolder.js");
-
-const deleteNote = require("./noteServices/deleteFile.js");
-const readNote = require("./noteServices/fileRead.js");
-const addNote = require("./noteServices/addFile.js");
+const fs = require("fs");
 const url = require("url");
-let urlStart = /\/notes\/(\d+).txt/;
+const addNote = require("./noteService/addNote");
+const deleteNote = require("./noteService/deleteNote");
+
+//const noteServices = require("./noteService/");
 
 exports.findEndPoint = function(req, res) {
   let urlParts = url.parse(req.url, true);
@@ -13,17 +12,17 @@ exports.findEndPoint = function(req, res) {
 
   let obj = new Map();
   obj.set(/\/notes\/\d+.txt\/delete/, function() {
-    deleteNote.deleteFile(urlPath);
+    return deleteNote(urlPath);
   });
   obj.set(/\/notes\/\d+.txt\/read/, function() {
-    return readNote.readFile(urlPath);
+    return readNote(urlPath);
   });
   obj.set(/notes\/addFile/, function() {
-    return addNote.addFile(req, res);
+    return addNote(req, res);
   });
 
   obj.set(/\/notes/, function() {
-    return getFilesinFolder.getFiles("../client/fl/");
+    return getNotes("../client/fl/");
   });
   obj.set(/\//, function() {
     return "";
@@ -35,3 +34,16 @@ exports.findEndPoint = function(req, res) {
     }
   }
 };
+
+function getNotes(path) {
+  return fs.readdirSync(path);
+}
+function getNameOfFile(path) {
+  let fileName = path.match(/\/notes\/(\d+).txt/)[1];
+  return "../client/fl/" + fileName + ".txt";
+}
+function readNote(path) {
+  let file = getNameOfFile(path);
+  let result = ["" + fs.readFileSync(file)];
+  return result;
+}
