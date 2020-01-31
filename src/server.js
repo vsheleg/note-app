@@ -2,7 +2,6 @@ const http = require("http");
 const url = require("url");
 const fs = require("fs");
 const handleEndpoint = require("./handleEndpoint.js");
-const folderController = require("./noteServices/folderController.js");
 const hostname = "localhost";
 const port = 3001;
 const server = http.createServer((req, res) => {

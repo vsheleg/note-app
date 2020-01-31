@@ -1,5 +1,5 @@
 const fs = require("fs");
-const folderController = require("./folderController.js");
+const folderController = require("./openFolder.js");
 const folder = ".//fl/";
 
 exports.generateName = function() {

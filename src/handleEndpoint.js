@@ -1,9 +1,9 @@
 //noteservices
-const openFolder = require("./noteServices/folderController.js");
-const generateNameController = require("./noteServices/generateNameController.js");
-const deleteNote = require("./noteServices/deleteController.js");
-const readNote = require("./noteServices/fileController.js");
-const addNote = require("./noteServices/addFileController.js");
+const getFilesinFolder = require("./noteServices/openFolder.js");
+const generateName = require("./noteServices/generateName.js");
+const deleteNote = require("./noteServices/deleteFile.js");
+const readNote = require("./noteServices/fileRead.js");
+const addNote = require("./noteServices/addFile.js");
 
 const url = require("url");
 let urlStart = /\/notes\/(\d+).txt/;
@@ -37,7 +37,7 @@ function addNoteHandler(req, res) {
     req.on("end", () => {
       if (urlPath.match(regexp)) {
         console.log("body " + body);
-        let path = generateNameController.generateName();
+        let path = generateName.generateName();
         addNote.addFile(path, body);
         res.end(body);
         return body;
@@ -53,7 +53,7 @@ exports.findEndPoint = function(req, res) {
   if (urlPath == "/") {
     return [""];
   } else if (urlPath == "/notes") {
-    return openFolder.getFiles("fl");
+    return getFilesinFolder.getFiles("fl");
   }
   if (deleteNoteHandler(urlPath)) {
     const file = getNameOfFile(urlPath);
