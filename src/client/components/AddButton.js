@@ -2,7 +2,7 @@ import React from "react";
 import "./Button.css";
 const locUrl = "http://localhost:3001/notes";
 
-function Button(props) {
+function AddButton(props) {
   function addNote() {
     let val = document.getElementById("addNote").value;
     let data = { note: val };
@@ -35,4 +35,4 @@ function Button(props) {
     </div>
   );
 }
-export default Button;
+export default AddButton;

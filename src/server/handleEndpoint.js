@@ -24,7 +24,7 @@ exports.findEndPoint = function(req, res) {
   });
 
   obj.set(/\/notes/, function() {
-    return getNotes("../client/fl/");
+    return getNotes("./client/fl/");
   });
   obj.set(/\//, function() {
     return "";
@@ -42,7 +42,7 @@ function getNotes(path) {
 }
 function getNameOfFile(path) {
   let fileName = path.match(/\/notes\/(\d+).txt/)[1];
-  return "../client/fl/" + fileName + ".txt";
+  return "./client/fl/" + fileName + ".txt";
 }
 function readNote(path) {
   let file = getNameOfFile(path);

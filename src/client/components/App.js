@@ -1,6 +1,6 @@
 import React from "react";
 import NoteList from "./NoteList";
-import Button from "./Button";
+import AddButton from "./AddButton";
 import "./App.css";
 const locUrl = "http://localhost:3001/notes";
 
@@ -57,7 +57,7 @@ class App extends React.Component {
           //onEdit={this.editNote}
           onDelete={this.deleteNote}
         />
-        <Button onAdd={this.addNote} />
+        <AddButton onAdd={this.addNote} />
       </div>
     );
   }
