@@ -1,8 +1,9 @@
 import React from "react";
-import NoteList from "./NoteList";
-import AddButton from "./AddButton";
+import NoteList from "./NoteList/NoteList";
+import AddButton from "./Button/AddButton";
 import "./App.css";
 const locUrl = "http://localhost:3001/notes";
+const noteService = require("../../server/noteService");
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class App extends React.Component {
       .then(response => response.json())
       .then(response => {
         obj.notes = response;
-        console.log(response);
         this.setState(obj);
       })
       .catch(function(error) {
@@ -36,17 +36,11 @@ class App extends React.Component {
   };
 
   deleteNote = note => {
-    fetch(locUrl + "/" + note + "/delete")
-      .then(response => response.json())
-      .then(response => {})
-      .catch(function(error) {
-        console.log(error);
-      });
-    let newNotes = this.state.notes.filter(elem => elem !== note);
-    let newObj = { notes: newNotes };
-    this.setState(newObj);
+    this.updateItems();
   };
   addNote = note => {
+    console.log("note " + note);
+    noteService.addNote(note);
     this.updateItems();
   };
   render() {

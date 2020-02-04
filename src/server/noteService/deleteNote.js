@@ -1,11 +1,10 @@
-const fs = require("fs");
-
-function getNameOfFile(path) {
-  let fileName = path.match(/\/notes\/(\d+).txt/)[1];
-  return "../client/fl/" + fileName + ".txt";
-}
-
-module.exports = function deleteNote(path) {
-  let file = getNameOfFile(path);
-  return fs.unlinkSync(file);
+const locUrl = "http://localhost:3001/notes";
+module.exports = function deleteNote(note) {
+  console.log("delfetch ");
+  fetch(locUrl + "/" + note + "/delete")
+    .then(response => response.json())
+    .then(response => {})
+    .catch(function(error) {
+      console.log(error);
+    });
 };

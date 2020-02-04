@@ -1,26 +1,10 @@
 import React from "react";
-import "./Button.css";
+import "./AddButton.css";
 const locUrl = "http://localhost:3001/notes";
 
 function AddButton(props) {
   function addNote() {
     let val = document.getElementById("addNote").value;
-    let data = { note: val };
-    fetch(locUrl + "/addFile", {
-      method: "POST",
-      status: 200,
-      headers: {
-        "Content-Type": "text/plain"
-      },
-      body: val
-    })
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
     props.onAdd(val);
   }
   return (

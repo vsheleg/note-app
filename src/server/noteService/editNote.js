@@ -1,22 +1,19 @@
-const fs = require("fs");
-const folder = "../client/fl/";
+const locUrl = "http://localhost:3001/notes/";
 
-function getNotes(path) {
-  return fs.readdirSync(path);
-}
-
-module.exports = function editNote(req, res, path) {
-  if (req.method === "POST") {
-    let body = "";
-    req.on("data", function(data) {
-      body += data.toString();
-      fs.writeFile(path, body, function(err) {
-        if (err) throw err;
-      });
+module.exports = function editNote(elem, file) {
+  fetch(locUrl + file + "/edit", {
+    method: "POST",
+    status: 200,
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: elem
+  })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
     });
-    req.on("end", () => {
-      res.end(body);
-      return body;
-    });
-  }
 };

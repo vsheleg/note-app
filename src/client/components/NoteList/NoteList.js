@@ -1,7 +1,7 @@
 import React from "react";
 
-import "./Note.css";
-import Note from "./Note.js";
+import "./Note/Note.css";
+import Note from "./Note/Note";
 
 function NoteList(props) {
   const notes = props.notes;

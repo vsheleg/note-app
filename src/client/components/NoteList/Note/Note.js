@@ -1,14 +1,27 @@
 import React from "react";
 const locUrl = "http://localhost:3001/notes/";
+const noteService = require("../../../../server/noteService");
 
 class Note extends React.Component {
   constructor(props) {
     super(props);
+    this.textInput = React.createRef();
     this.state = { val: false, content: "h", loading: false };
   }
-
   componentDidMount = () => {
-    console.log(locUrl + this.props.note + "/read");
+    /*
+      console.log("res" + response);
+      let obj = { val: false, content: response.join(""), loading: true };
+      this.setState(obj);
+    let result = noteService.loadNote(this.props.note);
+    this.setState({
+      content: result
+    });
+    
+    let result = noteService.loadNote(this.props.note);
+    console.log(result);
+    this.setState(result);
+    */
     fetch(locUrl + this.props.note + "/read")
       .then(response => response.json())
       .then(response => {
@@ -28,35 +41,18 @@ class Note extends React.Component {
   };
 
   deleteItem = () => {
+    noteService.deleteNote(this.props.note);
     this.props.onDelete(this.props.note);
   };
 
   editItem = () => {
     if (this.state.val) {
-      let elem = document.getElementById("editNote").value;
+      let newValue = this.textInput.current.value;
+      noteService.editNote(newValue, this.props.note);
       this.setState({
-        content: elem
-      });
-      this.setState({
+        content: newValue,
         val: false
       });
-
-      console.log(locUrl + this.props.note + "/edit");
-      fetch(locUrl + this.props.note + "/edit", {
-        method: "POST",
-        status: 200,
-        headers: {
-          "Content-Type": "text/plain"
-        },
-        body: elem
-      })
-        .then(response => response.json())
-        .then(response => {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
     } else {
       this.setState({ val: true });
     }
@@ -68,7 +64,12 @@ class Note extends React.Component {
         <input type="button" onClick={this.deleteItem} name="delete"></input>
         <input type="button" onClick={this.editItem} name="edit"></input>
         {this.state.val ? (
-          <input type="text" name="editNote" id="editNote" />
+          <input
+            type="text"
+            name="editNote"
+            id="editNote"
+            ref={this.textInput}
+          />
         ) : null}
       </div>
     );
