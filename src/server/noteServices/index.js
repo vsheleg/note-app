@@ -1,5 +1,5 @@
 module.exports = {
-  deleteFile: require("./deleteNote"),
-  editFile: require("./editNote"),
-  addFile: require("./addNote")
+  deleteNote: require("./deleteNote"),
+  editNote: require("./editNote"),
+  addNote: require("./addNote")
 };

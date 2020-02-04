@@ -1,10 +1,6 @@
-const locUrl = "http://localhost:3001/notes";
+const locUrl = "http://localhost:3001/notes/";
+const apiService = require("./apiService/index");
+
 module.exports = function deleteNote(note) {
-  console.log("delfetch ");
-  fetch(locUrl + "/" + note + "/delete")
-    .then(response => response.json())
-    .then(response => {})
-    .catch(function(error) {
-      console.log(error);
-    });
+  apiService.delete(locUrl, note);
 };

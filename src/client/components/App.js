@@ -12,35 +12,28 @@ class App extends React.Component {
   }
   updateItems = () => {
     let obj = { notes: [] };
-
-    let result = fetch(locUrl)
-      .then(response => response.json())
-      .then(response => {
-        obj.notes = response;
-        this.setState(obj);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    let result = noteService.loadAllNotes(locUrl);
+    result.then(response => {
+      obj.notes = response;
+      this.setState(obj);
+    });
   };
 
   componentDidMount = () => {
     this.updateItems();
   };
 
-  componentDidUpdate = () => {
-    console.log("main is updated");
-  };
-  componentWillUnmount = () => {
-    console.log("component was unmounted");
-  };
+  componentDidUpdate = () => {};
+  componentWillUnmount = () => {};
 
   deleteNote = note => {
-    this.updateItems();
+    noteService.deleteNote(note);
+    let obj = this.state;
+    obj.notes = obj.notes.filter(elem => elem !== note);
+    this.setState(obj);
   };
 
   addNote = note => {
-    console.log("note " + note);
     noteService.addNote(note);
     this.updateItems();
   };

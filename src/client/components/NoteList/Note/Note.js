@@ -9,26 +9,16 @@ class Note extends React.Component {
     this.state = { val: false, content: "", loading: false };
   }
   componentDidMount = () => {
-    fetch(locUrl + this.props.note + "/read")
-      .then(response => response.json())
-      .then(response => {
-        console.log("res" + response);
-        let obj = { val: false, content: response.join(""), loading: true };
-        this.setState(obj);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    let result = noteService.loadNote(locUrl, this.props.note);
+    result.then(response => {
+      let obj = { val: false, content: response.join(""), loading: true };
+      this.setState(obj);
+    });
   };
-  componentDidUpdate = () => {
-    console.log("note updated");
-  };
-  componentWillUnmount = () => {
-    console.log("note deleted");
-  };
+  componentDidUpdate = () => {};
+  componentWillUnmount = () => {};
 
   deleteItem = () => {
-    noteService.deleteNote(this.props.note);
     this.props.onDelete(this.props.note);
   };
 
