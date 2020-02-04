@@ -1,27 +1,14 @@
 import React from "react";
 const locUrl = "http://localhost:3001/notes/";
-const noteService = require("../../../../server/noteService");
+const noteService = require("../../../noteService/index");
 
 class Note extends React.Component {
   constructor(props) {
     super(props);
     this.textInput = React.createRef();
-    this.state = { val: false, content: "h", loading: false };
+    this.state = { val: false, content: "", loading: false };
   }
   componentDidMount = () => {
-    /*
-      console.log("res" + response);
-      let obj = { val: false, content: response.join(""), loading: true };
-      this.setState(obj);
-    let result = noteService.loadNote(this.props.note);
-    this.setState({
-      content: result
-    });
-    
-    let result = noteService.loadNote(this.props.note);
-    console.log(result);
-    this.setState(result);
-    */
     fetch(locUrl + this.props.note + "/read")
       .then(response => response.json())
       .then(response => {

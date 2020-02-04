@@ -1,14 +1,12 @@
 const fs = require("fs");
-const generateNewName = require("./generateNewName");
+const noteStorage = require("./noteStorage");
 
 module.exports = function addFile(req, res) {
-  let file = generateNewName();
-
+  let file = noteStorage.generateNewName();
   if (req.method === "POST") {
     let body = "";
     req.on("data", function(data) {
       body += data.toString();
-      console.log("filename " + file + " body " + body);
       fs.writeFile(file, body, function(err) {
         if (err) throw err;
       });

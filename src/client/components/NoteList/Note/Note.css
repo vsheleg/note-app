@@ -26,7 +26,7 @@ ul {
 }
 input[name="delete"] {
     display:block;
-    background-image: url('cross.png');
+    background-image: url('images/cross.png');
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 10px 10px;
@@ -38,7 +38,7 @@ input[name="delete"] {
 }
 input[name="edit"] {
     display:block;
-    background-image: url('edit.png');
+    background-image: url('images/edit.png');
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 10px 10px;

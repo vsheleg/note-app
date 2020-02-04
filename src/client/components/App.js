@@ -3,7 +3,7 @@ import NoteList from "./NoteList/NoteList";
 import AddButton from "./Button/AddButton";
 import "./App.css";
 const locUrl = "http://localhost:3001/notes";
-const noteService = require("../../server/noteService");
+const noteService = require("../noteService/index");
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +38,7 @@ class App extends React.Component {
   deleteNote = note => {
     this.updateItems();
   };
+
   addNote = note => {
     console.log("note " + note);
     noteService.addNote(note);
@@ -46,11 +47,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="container">
-        <NoteList
-          notes={this.state.notes}
-          //onEdit={this.editNote}
-          onDelete={this.deleteNote}
-        />
+        <NoteList notes={this.state.notes} onDelete={this.deleteNote} />
         <AddButton onAdd={this.addNote} />
       </div>
     );

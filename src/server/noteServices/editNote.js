@@ -1,10 +1,11 @@
 const fs = require("fs");
 const url = require("url");
-const getNameOfFile = require("./getNameOfFile");
+const noteStorage = require("./noteStorage/index");
+
 module.exports = function editNote(req, res) {
   let urlParts = url.parse(req.url, true);
   const urlPath = urlParts.pathname;
-  let path = getNameOfFile(urlPath);
+  let path = noteStorage.getNameOfFile(urlPath);
 
   if (req.method === "POST") {
     let body = "";
