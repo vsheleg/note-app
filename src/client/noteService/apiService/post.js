@@ -1,10 +1,13 @@
-module.exports = function post(url, queryData) {
-  fetch(url, {
+const apiUrl = "notes/";
+
+function post(url, bodyData) {
+  fetch(url + apiUrl, {
     method: "POST",
     status: 200,
     headers: {
-      "Content-Type": "text/plain"
+      "Content-Type": "application/json"
     },
-    body: queryData
+    body: bodyData
   });
-};
+}
+export default { post };

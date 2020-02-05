@@ -1,6 +1,7 @@
+import apiService from "./apiService/index";
 const locUrl = "http://localhost:3001/notes";
-const apiService = require("./apiService/index");
 
-module.exports = function addNote(note) {
-  apiService.post(locUrl + "/addFile", note);
-};
+function addNote(note) {
+  apiService.post.post(locUrl + "/addFile", note);
+}
+export default { addNote };

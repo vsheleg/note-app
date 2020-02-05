@@ -1,5 +1,8 @@
-const apiService = require("./apiService/index");
+import apiService from "./apiService/index";
+const locUrl = "http://localhost:3001/";
 
-module.exports = function loadAllNotes(url) {
-  return apiService.get(url);
-};
+function loadAllNotes() {
+  return apiService.get.get(locUrl);
+}
+
+export default { loadAllNotes };

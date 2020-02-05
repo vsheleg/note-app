@@ -1,6 +1,9 @@
-module.exports = function deleteData(url, file) {
-  console.log(url + file + "/delete");
-  fetch(url + file + "/delete", {
+const apiUrl = "notes/";
+
+function deleteData(url, file) {
+  fetch(url + apiUrl + file + "/delete", {
     method: "delete"
   });
-};
+}
+
+export default { deleteData };

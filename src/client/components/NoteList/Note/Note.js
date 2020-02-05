@@ -1,6 +1,5 @@
 import React from "react";
-const locUrl = "http://localhost:3001/notes/";
-const noteService = require("../../../noteService/index");
+import noteService from "../../../noteService/index";
 
 class Note extends React.Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class Note extends React.Component {
     this.state = { val: false, content: "", loading: false };
   }
   componentDidMount = () => {
-    let result = noteService.loadNote(locUrl, this.props.note);
+    let result = noteService.loadNote.loadNote(this.props.note);
     result.then(response => {
       let obj = { val: false, content: response.join(""), loading: true };
       this.setState(obj);
@@ -25,7 +24,7 @@ class Note extends React.Component {
   editItem = () => {
     if (this.state.val) {
       let newValue = this.textInput.current.value;
-      noteService.editNote(newValue, this.props.note);
+      noteService.editNote.editNote(newValue, this.props.note);
       this.setState({
         content: newValue,
         val: false
