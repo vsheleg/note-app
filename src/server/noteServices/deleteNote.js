@@ -17,6 +17,9 @@ module.exports = function deleteNote(req, res) {
       }
     })
     .on("end", () => {
+      contentOfFile[contentOfFile.length - 1] = contentOfFile[
+        contentOfFile.length - 1 //delete blank line at the end
+      ].slice(0, -1);
       fs.writeFileSync(
         "./server/files/file.csv",
         contentOfFile.join(""),
