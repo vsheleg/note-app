@@ -10,7 +10,9 @@ class Note extends React.Component {
   componentDidMount = () => {
     let result = noteService.loadNote.loadNote(this.props.note);
     result.then(response => {
-      let obj = { val: false, content: response.join(""), loading: true };
+      console.log(response);
+
+      let obj = { val: false, content: response, loading: true };
       this.setState(obj);
     });
   };
@@ -20,7 +22,6 @@ class Note extends React.Component {
   deleteItem = () => {
     this.props.onDelete(this.props.note);
   };
-
   editItem = () => {
     if (this.state.val) {
       let newValue = this.textInput.current.value;

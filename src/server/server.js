@@ -2,6 +2,7 @@ const http = require("http");
 const url = require("url");
 const fs = require("fs");
 const handleEndpoint = require("./handleEndpoint");
+var isPromise = require("is-promise");
 
 const port = 3001;
 
@@ -13,8 +14,9 @@ const server = http.createServer((req, res) => {
     res.end();
     return;
   }
-  let result = JSON.stringify(handleEndpoint(req, res));
-  res.end(result);
+
+  let result = handleEndpoint(req, res);
+  res.end(JSON.stringify(result));
 });
 server.listen(port);
 

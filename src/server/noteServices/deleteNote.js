@@ -1,5 +1,6 @@
 const fs = require("fs");
 const url = require("url");
+const csv = require("csv-parser");
 const noteStorage = require("./noteStorage/index");
 
 module.exports = function deleteNote(req, res) {
@@ -7,5 +8,19 @@ module.exports = function deleteNote(req, res) {
   const urlPath = urlParts.pathname;
 
   let file = noteStorage.getNameOfFile(urlPath);
-  return fs.unlinkSync(file);
+  let contentOfFile = ["Title,Content\r"];
+  fs.createReadStream("./server/files/file.csv")
+    .pipe(csv())
+    .on("data", function(data) {
+      if (data.Title !== file) {
+        contentOfFile.push(data.Title + "," + data.Content + "\r");
+      }
+    })
+    .on("end", () => {
+      fs.writeFileSync(
+        "./server/files/file.csv",
+        contentOfFile.join(""),
+        function(err) {}
+      );
+    });
 };

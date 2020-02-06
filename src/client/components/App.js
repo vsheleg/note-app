@@ -17,11 +17,9 @@ class App extends React.Component {
       this.setState(obj);
     });
   };
-
   componentDidMount = () => {
     this.updateItems();
   };
-
   componentDidUpdate = () => {};
   componentWillUnmount = () => {};
 
@@ -36,6 +34,7 @@ class App extends React.Component {
     noteService.addNote.addNote(note);
     this.updateItems();
   };
+
   render() {
     return (
       <div id="container">

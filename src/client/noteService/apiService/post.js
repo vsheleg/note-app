@@ -1,6 +1,7 @@
 const apiUrl = "notes/";
 
 function post(url, bodyData) {
+  console.log(url + apiUrl);
   fetch(url + apiUrl, {
     method: "POST",
     status: 200,

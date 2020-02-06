@@ -9,13 +9,13 @@ function createRoute(template, handler) {
 }
 
 module.exports = function defineRoutes() {
-  createRoute(/\/notes\/\d+.txt\/delete/, function(req, res) {
+  createRoute(/\/notes\/\d+\/delete/, function(req, res) {
     return noteService.deleteNote(req, res);
   });
-  createRoute(/\/notes\/\d+.txt\/edit/, function(req, res) {
+  createRoute(/\/notes\/\d+\/edit/, function(req, res) {
     return noteService.editNote(req, res);
   });
-  createRoute(/\/notes\/\d+.txt\/read/, function(req, res) {
+  createRoute(/\/notes\/\d+\/read/, function(req, res) {
     return noteStorage.readFile(req, res);
   });
   createRoute(/notes\/addFile/, function(req, res) {
