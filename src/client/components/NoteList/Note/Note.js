@@ -7,14 +7,17 @@ class Note extends React.Component {
     this.textInput = React.createRef();
     this.state = { val: false, content: "", loading: false };
   }
-  componentDidMount = () => {
+  updateItems = () => {
     let result = noteService.loadNote.loadNote(this.props.note);
     result.then(response => {
       console.log(response);
-
       let obj = { val: false, content: response, loading: true };
       this.setState(obj);
     });
+  };
+
+  componentDidMount = () => {
+    this.updateItems();
   };
   componentDidUpdate = () => {};
   componentWillUnmount = () => {};
@@ -34,6 +37,7 @@ class Note extends React.Component {
       this.setState({ val: true });
     }
   };
+
   render() {
     return (
       <div className="note-settings">

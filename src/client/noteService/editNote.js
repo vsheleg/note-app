@@ -1,8 +1,9 @@
 import apiService from "./apiService/index";
-const locUrl = "http://localhost:3001/notes/";
+const locUrl = "http://localhost:3002/";
 
 function editNote(elem, file) {
-  apiService.post.post(locUrl + file + "/edit", elem);
+  let endPoint = "/edit";
+  apiService.post.post(locUrl, file, elem, endPoint);
 }
 
 export default { editNote };

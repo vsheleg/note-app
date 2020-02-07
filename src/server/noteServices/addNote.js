@@ -12,7 +12,6 @@ module.exports = function addFile(req, res) {
     });
     req.on("end", () => {
       res.end(body);
-      console.log("body " + body);
       return body;
     });
   }
