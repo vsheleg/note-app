@@ -37,6 +37,7 @@ class Note extends React.Component {
       this.setState({ val: true });
     }
   };
+  addItem = () => {};
 
   render() {
     return (

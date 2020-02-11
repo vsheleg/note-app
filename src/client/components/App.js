@@ -14,6 +14,7 @@ class App extends React.Component {
     let result = noteService.loadAllNotes.loadAllNotes();
     result.then(response => {
       obj.notes = response;
+      console.log(obj.notes);
       this.setState(obj);
     });
   };
@@ -45,3 +46,6 @@ class App extends React.Component {
   }
 }
 export default App;
+
+//primary key foreign key , нормализация базы данных
+//

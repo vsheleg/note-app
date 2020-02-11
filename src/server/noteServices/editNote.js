@@ -17,6 +17,7 @@ module.exports = function editNote(req, res) {
         if (data.Title === file) {
           data.Content = newData;
         }
+
         contentOfFile.push(data.Title + "," + data.Content + "\r");
       })
       .on("end", () => {
