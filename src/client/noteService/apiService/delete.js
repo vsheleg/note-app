@@ -1,7 +1,7 @@
 const apiUrl = "notes/";
 
-function deleteData(url, file) {
-  fetch(url + apiUrl + file + "/delete", {
+function deleteData(url, file, endpoint) {
+  fetch(url + apiUrl + file + endpoint, {
     method: "delete"
   });
 }

@@ -1,30 +1,31 @@
-const http = require("http");
-const url = require("url");
-const fs = require("fs");
-const handleEndpoint = require("./handleEndpoint");
-var isPromise = require("is-promise");
+const express = require("express");
+const noteStorage = require("./noteServices/noteStorage/index");
+const noteService = require("./noteServices/index");
+const folder = "./server/files/";
 
-const port = 3001;
+var cors = require("cors");
+const notesRouter = express.Router();
 
-const server = http.createServer((req, res) => {
-  res = setHeaders(res);
-  res.statusCode = 200;
-  if (req.method === "OPTIONS") {
-    res.writeHead(200);
-    res.end();
-    return;
-  }
+const app = express();
+app.use(cors());
 
-  let result = handleEndpoint(req, res);
-  res.end(JSON.stringify(result));
+notesRouter.get(/readAll/, function(req, res) {
+  res.end(JSON.stringify(noteStorage.getFiles(folder)));
 });
-server.listen(port);
+notesRouter.get("/:noteId/read", function(req, res) {
+  console.log("read");
+  res.end(JSON.stringify(noteStorage.readFile(req, res, folder)));
+});
+notesRouter.post("/:noteId/edit", function(req, res) {
+  res.end(JSON.stringify(noteService.editNote(req, res)));
+});
+notesRouter.delete("/:noteId/delete", function(req, res) {
+  res.end(JSON.stringify(noteService.deleteNote(req, res)));
+});
+notesRouter.post("/:noteId/addNote", function(req, res) {
+  res.end(JSON.stringify(noteService.addNote(req, res)));
+});
 
-setHeaders = res => {
-  res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Request-Method", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  return res;
-};
+app.use("/notes/", notesRouter);
+
+app.listen(3002);

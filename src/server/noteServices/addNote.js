@@ -1,5 +1,4 @@
 const fs = require("fs");
-const noteStorage = require("./noteStorage");
 
 module.exports = function addFile(req, res) {
   if (req.method === "POST") {
@@ -12,7 +11,6 @@ module.exports = function addFile(req, res) {
     });
     req.on("end", () => {
       res.end(body);
-      console.log("body " + body);
       return body;
     });
   }

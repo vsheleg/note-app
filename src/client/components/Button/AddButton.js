@@ -1,6 +1,5 @@
 import React from "react";
 import "./AddButton.css";
-const locUrl = "http://localhost:3001/notes";
 
 function AddButton(props) {
   function addNote() {
