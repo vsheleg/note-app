@@ -87,7 +87,7 @@ notesRouter.post("/add", function(req, res) {
         id: newId,
         note_content: body
       }).then(() => {
-        res.redirect("/notes/" + newId + "/read");
+        res.redirect("/notes/readAll");
       });
     });
   });

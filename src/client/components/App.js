@@ -15,7 +15,12 @@ class App extends React.Component {
     result.then(response => {
       obj.notes = response;
       console.log(obj.notes);
-      this.setState(obj);
+      console.log(this.state.notes);
+      if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
+        this.updateItems();
+      } else {
+        this.setState(obj);
+      }
     });
   };
   componentDidMount = () => {
@@ -35,7 +40,6 @@ class App extends React.Component {
     noteService.addNote.addNote(note);
     this.updateItems();
   };
-
   render() {
     return (
       <div id="container">
@@ -46,6 +50,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-//primary key foreign key , нормализация базы данных
-//

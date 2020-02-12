@@ -17,6 +17,7 @@ class Note extends React.Component {
   };
 
   componentDidMount = () => {
+    console.log("this");
     this.updateItems();
   };
   componentDidUpdate = () => {};
