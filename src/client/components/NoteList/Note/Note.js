@@ -10,14 +10,12 @@ class Note extends React.Component {
   updateItems = () => {
     let result = noteService.loadNote.loadNote(this.props.note);
     result.then(response => {
-      console.log(response);
       let obj = { val: false, content: response, loading: true };
       this.setState(obj);
     });
   };
 
   componentDidMount = () => {
-    console.log("this");
     this.updateItems();
   };
   componentDidUpdate = () => {};

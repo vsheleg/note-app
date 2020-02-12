@@ -14,8 +14,6 @@ class App extends React.Component {
     let result = noteService.loadAllNotes.loadAllNotes();
     result.then(response => {
       obj.notes = response;
-      console.log(obj.notes);
-      console.log(this.state.notes);
       if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
         this.updateItems();
       } else {

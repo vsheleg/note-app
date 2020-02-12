@@ -1,7 +1,5 @@
 const express = require("express");
 const noteStorage = require("./noteServices/noteStorage/index");
-const noteService = require("./noteServices/index");
-const folder = "./server/files/";
 const url = require("url");
 var cors = require("cors");
 const notesRouter = express.Router();
@@ -9,7 +7,6 @@ const app = express();
 app.use(cors());
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("notes", "postgres", "1111", {
-  //"postgres://postgres:1111@localhost:5432/notes",
   dialect: "postgres"
 });
 const Notes = sequelize.define("users", {
@@ -18,7 +15,6 @@ const Notes = sequelize.define("users", {
     primaryKey: true,
     allowNull: true
   },
-
   note_content: {
     type: Sequelize.STRING,
     allowNull: true
@@ -36,7 +32,6 @@ notesRouter.get("/readAll", function(req, res) {
     for (let i = 0; i < data.length; i++) {
       result.push(data[i].id);
     }
-    console.log(result);
     res.end(JSON.stringify(result));
   });
 });
