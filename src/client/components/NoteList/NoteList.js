@@ -8,7 +8,12 @@ function NoteList(props) {
   const listNotes = notes.map(elem => (
     <li key={elem}>
       <span>{elem}</span>
-      <Note note={elem} onDelete={props.onDelete} onEdit={props.onEdit} />
+      <Note
+        note={elem}
+        onDelete={props.onDelete}
+        onAdd={props.onAdd}
+        onEdit={props.onEdit}
+      />
     </li>
   ));
   return <ul>{listNotes}</ul>;

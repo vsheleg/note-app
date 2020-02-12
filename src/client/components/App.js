@@ -14,7 +14,11 @@ class App extends React.Component {
     let result = noteService.loadAllNotes.loadAllNotes();
     result.then(response => {
       obj.notes = response;
-      this.setState(obj);
+      if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
+        this.updateItems();
+      } else {
+        this.setState(obj);
+      }
     });
   };
   componentDidMount = () => {
@@ -34,7 +38,6 @@ class App extends React.Component {
     noteService.addNote.addNote(note);
     this.updateItems();
   };
-
   render() {
     return (
       <div id="container">
