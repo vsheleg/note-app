@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import noteService from "../../../noteService/index";
 
 class Note extends React.Component {
@@ -14,13 +14,11 @@ class Note extends React.Component {
       this.setState(obj);
     });
   };
-
   componentDidMount = () => {
     this.updateItems();
   };
   componentDidUpdate = () => {};
   componentWillUnmount = () => {};
-
   deleteItem = () => {
     this.props.onDelete(this.props.note);
   };
@@ -37,7 +35,6 @@ class Note extends React.Component {
     }
   };
   addItem = () => {};
-
   render() {
     return (
       <div className="note-settings">
