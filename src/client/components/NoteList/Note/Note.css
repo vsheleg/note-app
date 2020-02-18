@@ -1,22 +1,50 @@
-.note-settings{
-    margin-right:8px;
-    height:140px;
-    border: 2px solid grey;
-    background-color: #fff5d9;
+:root {
+    --main-note-color:#f8dfc2;
+    --add-theme-color:#013ca6;
+    --main-font: 'Podkova';
 }
-.note {
+hr#title-line {
+    width: 165px;
+    color:black;
+}
+#title {
+    font-family: var(--main-font);
+    font-size: larger;
+    color:grey;
+    padding: 3px 8px;
+   
+}
+
+.note{
+    margin-right:8px;
+    font-family: var(--main-font);
+    height:170px;
+    display: block;
+    border-radius: 5%;
+    border: 2px solid grey;
+    padding: 10px;
+    background-color:var(--main-note-color);
+}
+
+input#editNote {    
+    float:right;
+    display: block;
+    width:80px;
+    position: relative;
+}
+.note-content {
+    display: block;
     word-wrap: break-word;
-    width: 100px;
-    background-color: #fff5d9;
+    width: 150px;
+    background-color: var(--main-note-color);
     height: 100px;
     border-radius: 3%;
     white-space: normal;
     padding:5px;
-    /*position: relative;*/
 }
 
 li {
-    width:160px;
+    width:200px;
     list-style-type: none;    
     display: inline-block;
 }
@@ -34,7 +62,7 @@ input[name="delete"] {
     width:10px;
     height:25px;
     float:right;
-    border:1px solid orangered;
+    border:1px solid var(--add-theme-color);
 }
 input[name="edit"] {
     display:block;
@@ -46,18 +74,16 @@ input[name="edit"] {
     width:20px;
     height:25px;
     float:right;
-    border:1px solid rgb(221, 197, 153);
+    border:1px solid var(--add-theme-color);
 }
+ш
 input[name="edit"]:focus {
-    border: 3px solid rgb(145, 145, 145);
+    border: 3px solid var(--add-theme-color);
   }
   input[name="delete"]:focus {
-    border: 3px solid rgb(145, 145, 145);
+    border: 3px solid var(--add-theme-color);
+  }
+  body {
+      text-align: center;
   }
   
-  #editNote {    
-      float: right;
-      display: block;
-      width:60px;
-      position: relative;
-  }

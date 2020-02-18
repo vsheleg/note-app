@@ -24,7 +24,6 @@ const Notes = sequelize.define("notes", {
   }
 });
 sequelize.sync().then(() => {});
-
 function deleteNote(noteId) {
   Notes.destroy({
     where: {

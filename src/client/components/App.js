@@ -41,8 +41,8 @@ class App extends React.Component {
   render() {
     return (
       <div id="container">
-        <NoteList notes={this.state.notes} onDelete={this.deleteNote} />
         <AddButton onAdd={this.addNote} />
+        <NoteList notes={this.state.notes} onDelete={this.deleteNote} />
       </div>
     );
   }

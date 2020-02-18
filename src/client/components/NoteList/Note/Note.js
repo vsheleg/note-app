@@ -1,5 +1,7 @@
 import React, { createRef } from "react";
 import noteService from "../../../noteService/index";
+import "./Note.css";
+import "../../../pages/signup/signup.css";
 
 class Note extends React.Component {
   constructor(props) {
@@ -22,6 +24,7 @@ class Note extends React.Component {
   deleteItem = () => {
     this.props.onDelete(this.props.note);
   };
+
   editItem = () => {
     if (this.state.val) {
       let newValue = this.textInput.current.value;
@@ -37,8 +40,10 @@ class Note extends React.Component {
   addItem = () => {};
   render() {
     return (
-      <div className="note-settings">
-        <div className="note">{this.state.content}</div>
+      <div className="note">
+        <span id="title">{this.props.note}</span>
+        <hr id="title-line" />
+        <div className="note-content">{this.state.content}</div>
         <input type="button" onClick={this.deleteItem} name="delete"></input>
         <input type="button" onClick={this.editItem} name="edit"></input>
         {this.state.val ? (

@@ -1,5 +1,5 @@
 const express = require("express");
-const controller = require("../controller/index");
+const controller = require("../controller/note.controller");
 const notesRouter = express.Router();
 
 notesRouter.delete("/:noteId/delete", function(req, res) {

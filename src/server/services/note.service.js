@@ -1,4 +1,4 @@
-const repository = require("../repositories/index");
+const repository = require("../repositories/note.repository");
 
 function editNote(body, noteId) {
   return repository.editNote(body, noteId);

@@ -6,15 +6,23 @@ function AddButton(props) {
     let val = document.getElementById("addNote").value;
     props.onAdd(val);
   }
+
   return (
     <div>
       <input
+        className="login"
         placeholder="Add new item"
         type="text"
         id="addNote"
         name="addNote"
-      ></input>
-      <input type="button" onClick={addNote} value="Add note"></input>
+      />
+      <input
+        id="plus"
+        type="button"
+        className="primary"
+        onClick={addNote}
+        value="+"
+      />
     </div>
   );
 }

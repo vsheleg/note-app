@@ -10,3 +10,11 @@ input[type=button] {
 input[type=text]:focus {
     border: 3px solid rgb(145, 145, 145);
   }
+input#addNote {
+  
+
+  height:20px;
+}
+input#plus {
+  padding: 8px 16px;
+}

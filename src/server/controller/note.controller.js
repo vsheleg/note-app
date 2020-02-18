@@ -1,4 +1,4 @@
-const service = require("../services/index");
+const service = require("../services/note.service");
 
 function addNote(req, res) {
   let body = "";
