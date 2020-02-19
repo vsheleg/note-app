@@ -1,55 +1,22 @@
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("notes-app", "postgres", "1111", {
-  dialect: "postgres"
-});
+let User = require("../db/index");
 
-const User = sequelize.define("users", {
-  user_id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-    allowNull: true
-  },
-  username: {
-    type: Sequelize.CHAR,
-    allowNull: true
-  },
-  password: {
-    type: Sequelize.CHAR,
-    allowNull: true
-  },
-
-  email: {
-    type: Sequelize.CHAR,
-    allowNull: true
-  },
-  createdAt: {
-    type: Sequelize.TIME,
-    allowNull: true
-  },
-  updatedAt: {
-    type: Sequelize.TIME,
-    allowNull: true
-  }
-});
-sequelize.sync().then(() => {});
-
-function createUser(user) {
-  return User.create({
+async function createUser(user) {
+  let result = await User.create({
     username: user.username,
     password: user.password,
     email: user.email
   }).then(error => {
     if (error) {
-      return "false"; //if exists user with one of credentials returns mistake - values must be unique
+      return false; //if exists user with one of credentials returns mistake - values must be unique
     } else {
-      return "true";
+      return true;
     }
   });
+  return result;
 }
 
-function addUser(user) {
-  return User.findOne({
+async function addUser(user) {
+  let result = await User.findOne({
     where: {
       username: user.username,
       password: user.password,
@@ -57,14 +24,15 @@ function addUser(user) {
     }
   }).then(response => {
     if (response) {
-      return "true"; //true means redirecting to notes
+      return true; //true means there exists such user
     } else {
       return createUser(user);
     }
   });
+  return result;
 }
-function loginUser(user) {
-  return User.findOne({
+async function loginUser(user) {
+  let result = await User.findOne({
     where: {
       email: user.email,
       password: user.password
@@ -76,6 +44,7 @@ function loginUser(user) {
       return "false";
     }
   });
+  return result;
 }
 
 module.exports = { addUser, loginUser };

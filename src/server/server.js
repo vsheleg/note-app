@@ -1,7 +1,8 @@
 const express = require("express");
-var cors = require("cors");
-let notesRouter = require("./routes/note.router");
-let userRouter = require("./routes/user.router");
+const cors = require("cors");
+const notesRouter = require("./routes/note.router");
+const userRouter = require("./routes/user.router");
+const bodyParser = require("body-parser");
 const app = express();
 
 app.use(cors());

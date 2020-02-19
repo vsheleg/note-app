@@ -1,5 +1,5 @@
 import React from "react";
-import signup from "../../userService/signup";
+import service from "../../services/user.service";
 import "../main.css";
 import "./signup.css";
 import { Redirect } from "react-router-dom";
@@ -7,20 +7,19 @@ import { Redirect } from "react-router-dom";
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.password = React.createRef();
-    this.username = React.createRef();
-    this.email = React.createRef();
-    this.confirmedPassword = React.createRef();
+    this.passwordRef = React.createRef();
+    this.usernameRef = React.createRef();
+    this.emailRef = React.createRef();
+    this.confirmedPasswordRef = React.createRef();
     this.state = { redirect: false };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
-    let username = this.username.current.value;
-    let password = this.password.current.value;
-    let email = this.email.current.value;
-    let confirmedPassword = this.confirmedPassword.current.value;
-    let result = signup({
+    const username = this.usernameRef.current.value;
+    const password = this.passwordRef.current.value;
+    const email = this.emailRef.current.value;
+    const confirmedPassword = this.confirmedPasswordRef.current.value;
+    const result = service.signup({
       username: username,
       password: password,
       email: email,
@@ -30,10 +29,10 @@ class Signup extends React.Component {
     result
       .then(response => response.json())
       .then(response => this.setState({ redirect: response }));
-  }
+  };
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/notes" from="/signup" />;
+      return <Redirect to="/login" from="/signup" />;
     } else {
       return (
         <div id="form-registration">
@@ -45,7 +44,7 @@ class Signup extends React.Component {
               type="text"
               placeholder="Name"
               name="username"
-              ref={this.username}
+              ref={this.usernameRef}
             />
 
             <br />
@@ -54,7 +53,7 @@ class Signup extends React.Component {
               type="email"
               placeholder="E-mail"
               name="email"
-              ref={this.email}
+              ref={this.emailRef}
             />
             <br />
             <input
@@ -62,7 +61,7 @@ class Signup extends React.Component {
               type="password"
               placeholder="Password"
               name="password"
-              ref={this.password}
+              ref={this.passwordRef}
             />
             <br />
             <input
@@ -70,7 +69,7 @@ class Signup extends React.Component {
               type="password"
               placeholder="Confirm password"
               name="confirmPassword"
-              ref={this.confirmedPassword}
+              ref={this.confirmedPasswordRef}
             />
             <br />
             <input
