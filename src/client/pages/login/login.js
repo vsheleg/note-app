@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import "../main.css";
 import "./login.css";
 
-class Signin extends React.Component {
+export default class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.passwordRef = React.createRef();
@@ -14,52 +14,42 @@ class Signin extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    const password = this.passwordRef.current.value;
-    const email = this.emailRef.current.value;
     const result = service.login({
-      password: password,
-      email: email
+      password: this.passwordRef.current.value,
+      email: this.emailRef.current.value
     });
-    result
-      .then(response => response.json())
-      .then(response => this.setState({ redirect: response }));
+    this.setState({ redirect: result });
   };
   render() {
-    if (this.state.redirect) {
+    const { redirect } = this.state.redirect;
+    if (redirect) {
       return <Redirect to="/notes" from="/login" />;
-    } else {
-      return (
-        <div id="form-login">
-          <form onSubmit={this.handleSubmit} method="post">
-            <p id="form-header">Login</p>
-            <hr />
-            <input
-              className="login"
-              type="email"
-              placeholder="E-mail"
-              name="email"
-              ref={this.emailRef}
-            />
-            <br />
-            <input
-              className="login"
-              type="password"
-              placeholder="Password"
-              name="password"
-              ref={this.passwordRef}
-            />
-
-            <br />
-            <input
-              type="submit"
-              class="primary"
-              id="login-btn"
-              value="Sign in"
-            />
-          </form>
-        </div>
-      );
     }
+    return (
+      <div id="form-login">
+        <form onSubmit={this.handleSubmit} method="post">
+          <p id="form-header">Login</p>
+          <hr />
+          <input
+            className="login"
+            type="email"
+            placeholder="E-mail"
+            name="email"
+            ref={this.emailRef}
+          />
+          <br />
+          <input
+            className="login"
+            type="password"
+            placeholder="Password"
+            name="password"
+            ref={this.passwordRef}
+          />
+
+          <br />
+          <input type="submit" class="primary" id="login-btn" value="Sign in" />
+        </form>
+      </div>
+    );
   }
 }
-export default Signin;

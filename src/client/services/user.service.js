@@ -1,28 +1,27 @@
-const apiUrl = "user/";
-const loginEndpoint = "login";
-const signupEndpoint = "signup";
-const locUrl = "http://localhost:3002/";
+import request from "./apiService/index";
+const BASEURI = "http://localhost:3002/";
+const ROUTER_PREFIX = BASEURI + "user";
+const ROUTES = {
+  LOGIN: "/login",
+  SIGNUP: "/signup"
+};
 
 function login(user) {
-  return fetch(locUrl + apiUrl + loginEndpoint, {
-    method: "POST",
-    status: 200,
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(user)
-  });
+  let result = request.post(ROUTER_PREFIX + ROUTES.LOGIN, user);
+  return result
+    .then(response => response.json())
+    .then(response => {
+      return response;
+    });
 }
 
 function signup(user) {
-  return fetch(locUrl + apiUrl + signupEndpoint, {
-    method: "POST",
-    status: 200,
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(user)
-  });
+  let result = request.post(ROUTER_PREFIX + ROUTES.LOGIN, user);
+  return result
+    .then(response => response.json())
+    .then(response => {
+      return response;
+    });
 }
 
-module.exports = { signup, login };
+export default { signup, login };

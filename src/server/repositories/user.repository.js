@@ -5,13 +5,15 @@ async function createUser(user) {
     username: user.username,
     password: user.password,
     email: user.email
-  }).then(error => {
-    if (error) {
-      return false; //if exists user with one of credentials returns mistake - values must be unique
-    } else {
-      return true;
-    }
-  });
+  })
+    .then(error => {
+      if (error) {
+        return false; //if exists user with one of credentials returns mistake - values must be unique
+      } else {
+        return true;
+      }
+    })
+    .catch(error => {});
   return result;
 }
 
@@ -39,9 +41,9 @@ async function loginUser(user) {
     }
   }).then(response => {
     if (response) {
-      return "true";
+      return true;
     } else {
-      return "false";
+      return false;
     }
   });
   return result;
