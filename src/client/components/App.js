@@ -2,7 +2,7 @@ import React from "react";
 import NoteList from "./NoteList/NoteList";
 import AddButton from "./Button/AddButton";
 import "./App.css";
-import noteService from "../noteService/index.js";
+import noteService from "../services/note.service.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class App extends React.Component {
   }
   updateItems = () => {
     let obj = { notes: [] };
-    let result = noteService.loadAllNotes.loadAllNotes();
+    let result = noteService.loadAllNotes();
     result.then(response => {
       obj.notes = response;
       if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
@@ -28,14 +28,14 @@ class App extends React.Component {
   componentWillUnmount = () => {};
 
   deleteNote = note => {
-    noteService.deleteNote.deleteNote(note);
+    noteService.deleteNote(note);
     let obj = this.state;
     obj.notes = obj.notes.filter(elem => elem !== note);
     this.setState(obj);
   };
 
   addNote = note => {
-    noteService.addNote.addNote(note);
+    noteService.addNote(note);
     this.updateItems();
   };
   render() {

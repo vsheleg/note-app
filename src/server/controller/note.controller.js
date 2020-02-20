@@ -17,11 +17,10 @@ function deleteNote(req, res) {
 
 function editNote(req, res) {
   let noteId = req.params["noteId"];
-  let body = "";
   req.on("data", function(data) {
-    body += data.toString();
+    let body = JSON.parse(data);
     service.editNote(body, noteId);
-    res.end("");
+    res.end("true");
   });
 }
 

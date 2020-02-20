@@ -1,10 +1,13 @@
-const express = require("express");
-const cors = require("cors");
-const notesRouter = require("./routes/note.router");
-const userRouter = require("./routes/user.router");
-const bodyParser = require("body-parser");
+const express = require("express"),
+  cors = require("cors"),
+  bodyParser = require("body-parser"),
+  notesRouter = require("./routes/note.router"),
+  userRouter = require("./routes/user.router");
+
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/", function(req, res) {

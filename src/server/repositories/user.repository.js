@@ -40,7 +40,7 @@ async function loginUser(user) {
       password: user.password
     }
   }).then(response => {
-    if (response) {
+    if (response !== null) {
       return true;
     } else {
       return false;

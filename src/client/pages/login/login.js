@@ -18,10 +18,12 @@ export default class Signin extends React.Component {
       password: this.passwordRef.current.value,
       email: this.emailRef.current.value
     });
-    this.setState({ redirect: result });
+    result.then(response => {
+      this.setState({ redirect: response });
+    });
   };
   render() {
-    const { redirect } = this.state.redirect;
+    const { redirect } = this.state;
     if (redirect) {
       return <Redirect to="/notes" from="/login" />;
     }

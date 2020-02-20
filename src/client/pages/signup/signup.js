@@ -35,7 +35,7 @@ export default class Signup extends React.Component {
     }
   };
   render() {
-    const { redirect } = this.state.redirect;
+    const { redirect } = this.state;
     if (redirect) {
       return <Redirect to="/login" from="/signup" />;
     }

@@ -32,7 +32,7 @@ function deleteNote(noteId) {
   });
 }
 function editNote(body, noteId) {
-  Notes.update({ note_content: body }, { where: { id: noteId } });
+  Notes.update({ note_content: body.value }, { where: { id: noteId } });
 }
 function addNote(body) {
   return Notes.create({
