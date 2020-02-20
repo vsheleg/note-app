@@ -19,7 +19,11 @@ export default class Signin extends React.Component {
       email: this.emailRef.current.value
     });
     result.then(response => {
-      this.setState({ redirect: response });
+      if (!response) {
+        this.setState({ redirect: response });
+      } else {
+        this.setState({ redirect: true });
+      }
     });
   };
   render() {

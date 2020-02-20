@@ -1,7 +1,8 @@
-let User = require("../db/index");
+let model = require("../db/index");
 
 async function createUser(user) {
-  let result = await User.create({
+  //creates the user in db
+  let result = await model.User.create({
     username: user.username,
     password: user.password,
     email: user.email
@@ -17,36 +18,41 @@ async function createUser(user) {
   return result;
 }
 
-async function addUser(user) {
-  let result = await User.findOne({
-    where: {
-      username: user.username,
-      password: user.password,
-      email: user.email
-    }
-  }).then(response => {
-    if (response) {
-      return true; //true means there exists such user
-    } else {
-      return createUser(user);
-    }
-  });
+async function signup(user) {
+  //tries to find user in db, if false calls createUser
+  let result = await model.modelUser
+    .findOne({
+      where: {
+        username: user.username,
+        password: user.password,
+        email: user.email
+      }
+    })
+    .then(response => {
+      if (response) {
+        return true; //true means there exists such user
+      } else {
+        return createUser(user);
+      }
+    });
   return result;
 }
 async function loginUser(user) {
-  let result = await User.findOne({
+  let result = await model.User.findOne({
     where: {
       email: user.email,
       password: user.password
     }
-  }).then(response => {
-    if (response !== null) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  })
+    .then(response => response.json)
+    .then(response => {
+      if (response) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   return result;
 }
 
-module.exports = { addUser, loginUser };
+module.exports = { signup, loginUser };

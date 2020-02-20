@@ -5,10 +5,10 @@ const express = require("express"),
   userRouter = require("./routes/user.router");
 
 const app = express();
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 
 app.get("/", function(req, res) {
   res.end("");

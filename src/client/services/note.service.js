@@ -8,22 +8,22 @@ const ROUTES = {
   ADD: "/add"
 };
 
-function addNote(note) {
-  request.post(ROUTER_PREFIX, "", note, ROUTES.ADD);
+function addNote(content) {
+  return request.post(ROUTER_PREFIX + ROUTES.ADD, content);
 }
 
 function loadAllNotes() {
-  return request.get(ROUTER_PREFIX, ROUTES.LOADAll);
+  return request.get(ROUTER_PREFIX + ROUTES.LOADAll);
 }
 function loadNote(title) {
-  return request.get(ROUTER_PREFIX, "/" + title + ROUTES.READ);
+  return request.get(ROUTER_PREFIX + ROUTES.READ + "/" + title);
 }
 function editNote(content, title) {
-  request.post(ROUTER_PREFIX, "/" + title, content, ROUTES.EDIT);
+  return request.post(ROUTER_PREFIX + ROUTES.EDIT + "/" + title, content);
 }
 
 function deleteNote(title) {
-  request.deleteData(ROUTER_PREFIX, "/" + title, ROUTES.DELETE);
+  return request.deleteData(ROUTER_PREFIX + ROUTES.DELETE + "/" + title);
 }
 
 export default { addNote, deleteNote, editNote, loadNote, loadAllNotes };

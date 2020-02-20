@@ -13,6 +13,7 @@ function login(user) {
 
 function signup(user) {
   let result = request.post(ROUTER_PREFIX + ROUTES.SIGNUP, "", user, "");
+
   return result;
 }
 

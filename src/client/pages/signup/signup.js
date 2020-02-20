@@ -30,14 +30,18 @@ export default class Signup extends React.Component {
         confirmedPassword: this.confirmedPasswordRef.current.value
       });
       result.then(response => {
-        this.setState({ redirect: response });
+        if (!response) {
+          this.setState({ redirect: response });
+        } else {
+          this.setState({ redirect: true });
+        }
       });
     }
   };
   render() {
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/login" from="/signup" />;
+      return <Redirect to="/notes" from="/signup" />;
     }
     return (
       <div id="form-registration">

@@ -33,4 +33,25 @@ const User = sequelize.define("users", {
   }
 });
 
-module.exports = User;
+const Notes = sequelize.define("notes", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: true
+  },
+  note_content: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  createdAt: {
+    type: Sequelize.TIME,
+    allowNull: true
+  },
+  updatedAt: {
+    type: Sequelize.TIME,
+    allowNull: true
+  }
+});
+
+module.exports = { User, Notes };

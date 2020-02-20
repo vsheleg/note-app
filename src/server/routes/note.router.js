@@ -2,20 +2,10 @@ const express = require("express");
 const controller = require("../controller/note.controller");
 const notesRouter = express.Router();
 
-notesRouter.delete("/:noteId/delete", function(req, res) {
-  controller.deleteNote(req, res);
-});
-notesRouter.get("/:noteId/read", function(req, res) {
-  controller.readNote(req, res);
-});
-notesRouter.get("/readAll", function(req, res) {
-  controller.getNotes(req, res);
-});
-notesRouter.post("/:noteId/edit", function(req, res) {
-  controller.editNote(req, res);
-});
-notesRouter.post("/add", function(req, res) {
-  controller.addNote(req, res);
-});
+notesRouter.delete("/delete/:noteId", controller.deleteNote);
+notesRouter.get("/read/:noteId", controller.readNote);
+notesRouter.get("/readAll", controller.getNotes);
+notesRouter.post("/edit/:noteId", controller.editNote);
+notesRouter.post("/add", controller.addNote);
 
 module.exports = notesRouter;

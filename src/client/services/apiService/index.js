@@ -7,24 +7,24 @@ function request(path, params = {}) {
       ...(params.headers || {})
     },
     ...params
-  });
+  }).then(response => response.json());
 }
 
-function deleteData(url, elem, endpoint) {
-  return request(url + elem + endpoint, {
+function deleteData(url) {
+  return request(url, {
     method: "delete"
   });
 }
 
-function get(url, queryData) {
-  return request(url + queryData).then(response => response.json());
+function get(url) {
+  return request(url, {});
 }
 
-function post(url, elem, bodyData, endPoint) {
-  return request(url + elem + endPoint, {
+function post(url, data) {
+  return request(url, {
     method: "POST",
-    body: JSON.stringify(bodyData)
-  }).then(response => response.json());
+    body: JSON.stringify(data)
+  });
 }
 
 export default { get, post, deleteData };

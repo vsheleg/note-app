@@ -1,49 +1,25 @@
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("notes-app", "postgres", "1111", {
-  dialect: "postgres"
-});
+let model = require("../db/index");
 
-const Notes = sequelize.define("notes", {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-    allowNull: true
-  },
-  note_content: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  createdAt: {
-    type: Sequelize.TIME,
-    allowNull: true
-  },
-  updatedAt: {
-    type: Sequelize.TIME,
-    allowNull: true
-  }
-});
-sequelize.sync().then(() => {});
 function deleteNote(noteId) {
-  Notes.destroy({
+  model.Notes.destroy({
     where: {
       id: noteId
     }
   });
 }
 function editNote(body, noteId) {
-  Notes.update({ note_content: body.value }, { where: { id: noteId } });
+  model.Notes.update({ note_content: body.value }, { where: { id: noteId } });
 }
 function addNote(body) {
-  return Notes.create({
+  return model.Notes.create({
     note_content: body
   });
 }
 function getNotes() {
-  return Notes.findAll({ raw: true });
+  return model.Notes.findAll({ raw: true });
 }
 function readNote(noteId) {
-  return Notes.findOne({ where: { id: noteId } });
+  return model.Notes.findOne({ where: { id: noteId } });
 }
 
 module.exports = { getNotes, readNote, addNote, deleteNote, editNote };
