@@ -20,21 +20,19 @@ async function createUser(user) {
 
 async function signup(user) {
   //tries to find user in db, if false calls createUser
-  let result = await model.modelUser
-    .findOne({
-      where: {
-        username: user.username,
-        password: user.password,
-        email: user.email
-      }
-    })
-    .then(response => {
-      if (response) {
-        return true; //true means there exists such user
-      } else {
-        return createUser(user);
-      }
-    });
+  let result = await model.User.findOne({
+    where: {
+      username: user.username,
+      password: user.password,
+      email: user.email
+    }
+  }).then(response => {
+    if (response) {
+      return true; //true means there exists such user
+    } else {
+      return createUser(user);
+    }
+  });
   return result;
 }
 async function loginUser(user) {
@@ -43,15 +41,13 @@ async function loginUser(user) {
       email: user.email,
       password: user.password
     }
-  })
-    .then(response => response.json)
-    .then(response => {
-      if (response) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+  }).then(response => {
+    if (response) {
+      return true;
+    } else {
+      return false;
+    }
+  });
   return result;
 }
 

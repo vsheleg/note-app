@@ -1,13 +1,14 @@
 const BASEURI = "http://localhost:3002/";
 
-function request(path, params = {}) {
-  return fetch(BASEURI + path, {
+async function request(path, params = {}) {
+  let result = await fetch(BASEURI + path, {
     headers: {
       "Content-Type": "application/json",
       ...(params.headers || {})
     },
     ...params
   }).then(response => response.json());
+  return result;
 }
 
 function deleteData(url) {

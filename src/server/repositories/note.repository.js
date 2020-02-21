@@ -11,7 +11,7 @@ function editNote(body, noteId) {
   model.Notes.update({ note_content: body.value }, { where: { id: noteId } });
 }
 function addNote(body) {
-  return model.Notes.create({
+  model.Notes.create({
     note_content: body
   });
 }

@@ -9,7 +9,7 @@ const ROUTES = {
 };
 
 function addNote(content) {
-  return request.post(ROUTER_PREFIX + ROUTES.ADD, content);
+  request.post(ROUTER_PREFIX + ROUTES.ADD, content);
 }
 
 function loadAllNotes() {
