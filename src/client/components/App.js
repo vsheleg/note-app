@@ -14,11 +14,7 @@ class App extends React.Component {
     let result = noteService.loadAllNotes();
     result.then(response => {
       obj.notes = response;
-      //  if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
-      //  this.updateItems();
-      // } else {
       this.setState(obj);
-      //}
     });
   };
   componentDidMount = () => {
@@ -27,15 +23,15 @@ class App extends React.Component {
   componentDidUpdate = () => {};
   componentWillUnmount = () => {};
 
-  deleteNote = note => {
-    noteService.deleteNote(note);
+  deleteNote = async note => {
+    await noteService.deleteNote(note);
     let obj = this.state;
     obj.notes = obj.notes.filter(elem => elem !== note);
     this.setState(obj);
   };
 
-  addNote = note => {
-    noteService.addNote(note);
+  addNote = async note => {
+    await noteService.addNote(note);
     this.updateItems();
   };
   render() {

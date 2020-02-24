@@ -24,13 +24,13 @@ export default class Signup extends React.Component {
     );
     this.setState({ validatePassword: isValidate });
     if (isValidate) {
-      const result = service.signup({
+      const signupPromise = service.signup({
         username: this.usernameRef.current.value,
         password: this.passwordRef.current.value,
         email: this.emailRef.current.value,
         confirmedPassword: this.confirmedPasswordRef.current.value
       });
-      result.then(response => {
+      signupPromise.then(response => {
         if (response.message) {
           //if user with such params already exists
           alert(response.message);

@@ -14,11 +14,12 @@ export default class Signin extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    const result = service.login({
+    const loginPromise = service.login({
       password: this.passwordRef.current.value,
       email: this.emailRef.current.value
     });
-    result.then(response => {
+    loginPromise.then(response => {
+      localStorage.setItem("note-token", response.token);
       this.setState({ redirect: response.redirect });
     });
   };

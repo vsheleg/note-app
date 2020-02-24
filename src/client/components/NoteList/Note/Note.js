@@ -25,10 +25,10 @@ class Note extends React.Component {
     this.props.onDelete(this.props.note);
   };
 
-  editItem = () => {
+  editItem = async () => {
     if (this.state.val) {
       let newValue = this.textInputRef.current.value;
-      noteService.editNote(
+      await noteService.editNote(
         { value: this.textInputRef.current.value },
         this.props.note
       );
@@ -40,7 +40,6 @@ class Note extends React.Component {
       this.setState({ val: true });
     }
   };
-  addItem = () => {};
   render() {
     return (
       <div className="note">
