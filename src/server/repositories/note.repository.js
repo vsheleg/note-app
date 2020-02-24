@@ -1,20 +1,20 @@
 let model = require("../db/index");
 
 async function deleteNote(noteId) {
-  await model.Notes.destroy({
+  return await model.Notes.destroy({
     where: {
       id: noteId
     }
   });
 }
 async function editNote(body, noteId) {
-  await model.Notes.update(
+  return await model.Notes.update(
     { note_content: body.value },
     { where: { id: noteId } }
   );
 }
 async function addNote(body) {
-  await model.Notes.create({
+  return await model.Notes.create({
     note_content: body
   });
 }

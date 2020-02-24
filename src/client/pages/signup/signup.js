@@ -40,8 +40,7 @@ export default class Signup extends React.Component {
     }
   };
   render() {
-    const { redirect } = this.state;
-    const { validatePassword } = this.state;
+    const { redirect, validatePassword } = this.state;
     if (redirect) {
       return <Redirect to="/notes" from="/signup" />;
     }

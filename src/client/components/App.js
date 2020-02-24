@@ -14,11 +14,11 @@ class App extends React.Component {
     let result = noteService.loadAllNotes();
     result.then(response => {
       obj.notes = response;
-      if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
-        this.updateItems();
-      } else {
-        this.setState(obj);
-      }
+      //  if (JSON.stringify(obj.notes) === JSON.stringify(this.state.notes)) {
+      //  this.updateItems();
+      // } else {
+      this.setState(obj);
+      //}
     });
   };
   componentDidMount = () => {

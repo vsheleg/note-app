@@ -1,38 +1,33 @@
 const service = require("../services/note.service");
 
-function addNote(req, res) {
-  console.log(req.body);
-  service.addNote(req.body);
-  res.send({});
-  // res.redirect("/notes/readAll");
+async function addNote(req, res) {
+  const result = await service.addNote(req.body);
+  res.send(result);
 }
 
-function deleteNote(req, res) {
+async function deleteNote(req, res) {
   const { noteId } = req.params;
-  service.deleteNote(noteId);
-  res.send({});
+  const result = await service.deleteNote(noteId);
+  res.send(result);
 }
 
-function editNote(req, res) {
+async function editNote(req, res) {
   const { noteId } = req.params;
-  service.editNote(req.body, noteId);
-  res.send({});
+  const result = await service.editNote(req.body, noteId);
+  res.send(result);
 }
 
-function getNotes(req, res) {
-  let file = service.getNotes();
-  let result = [];
-  file.then(data => {
-    for (let i = 0; i < data.length; i++) {
-      result.push(data[i].id);
-    }
-    res.end(JSON.stringify(result));
+async function getNotes(req, res) {
+  let notes = await service.getNotes();
+  notes = notes.map(note => {
+    return note.id;
   });
+  res.end(JSON.stringify(notes));
 }
-function readNote(req, res) {
+async function readNote(req, res) {
   const { noteId } = req.params;
-  let file = service.readNote(noteId);
-  file.then(data => res.end(JSON.stringify([data.note_content])));
+  let note = await service.readNote(noteId);
+  res.end(JSON.stringify([note.note_content]));
 }
 
 module.exports = { getNotes, readNote, addNote, deleteNote, editNote };
