@@ -6,26 +6,21 @@ import Signup from "./signup/signup";
 import Header from "./Header";
 import "./main.css";
 
-export default class Main extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route exact path="/login">
-            <Signin />
-          </Route>
-          <Route path="/notes">
-            <App />
-          </Route>
-        </Switch>
-      </Router>
-    );
-  }
+export default function Main(props) {
+  return (
+    <Router>
+      <Header />
+      <Switch>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/login">
+          <Signin />
+        </Route>
+        <Route path="/notes">
+          <App />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }

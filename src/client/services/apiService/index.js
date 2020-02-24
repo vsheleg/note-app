@@ -1,14 +1,15 @@
 const BASEURI = "http://localhost:3002/";
 
 async function request(path, params = {}) {
-  let result = await fetch(BASEURI + path, {
+  // let token = await localStorage.getItem(key);
+  return fetch(BASEURI + path, {
+    ...params,
     headers: {
+      //token: token,
       "Content-Type": "application/json",
       ...(params.headers || {})
-    },
-    ...params
+    }
   }).then(response => response.json());
-  return result;
 }
 
 function deleteData(url) {
@@ -18,7 +19,7 @@ function deleteData(url) {
 }
 
 function get(url) {
-  return request(url, {});
+  return request(url);
 }
 
 function post(url, data) {

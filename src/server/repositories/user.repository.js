@@ -1,54 +1,32 @@
 let model = require("../db/index");
+/*
+const jwt = require("jsonwebtoken");
+
+function generateToken(user) {
+  const data = {
+    emai: user.email
+  };
+  const signature = "MySuP3R_z3kr3t";
+  const expiration = "6h";
+
+  return jwt.sign({ data }, signature, { expiresIn: expiration });
+}*/
 
 async function createUser(user) {
-  //creates the user in db
-  let result = await model.User.create({
+  return await model.User.create({
     username: user.username,
     password: user.password,
     email: user.email
-  })
-    .then(error => {
-      if (error) {
-        return false; //if exists user with one of credentials returns mistake - values must be unique
-      } else {
-        return true;
-      }
-    })
-    .catch(error => {});
-  return result;
+  });
 }
 
-async function signup(user) {
-  //tries to find user in db, if false calls createUser
-  let result = await model.User.findOne({
-    where: {
-      username: user.username,
-      password: user.password,
-      email: user.email
-    }
-  }).then(response => {
-    if (response) {
-      return true; //true means there exists such user
-    } else {
-      return createUser(user);
-    }
-  });
-  return result;
-}
-async function loginUser(user) {
-  let result = await model.User.findOne({
+async function findUser(user) {
+  return await model.User.findOne({
     where: {
       email: user.email,
       password: user.password
     }
-  }).then(response => {
-    if (response) {
-      return true;
-    } else {
-      return false;
-    }
   });
-  return result;
 }
 
-module.exports = { signup, loginUser };
+module.exports = { findUser, createUser };

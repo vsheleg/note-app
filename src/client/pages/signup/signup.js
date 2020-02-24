@@ -18,11 +18,12 @@ export default class Signup extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    if (
-      this.passwordRef.current.value !== this.confirmedPasswordRef.current.value
-    ) {
-      this.setState({ validatePassword: false });
-    } else {
+    const isValidate = service.validatePassword(
+      this.passwordRef.current.value,
+      this.confirmedPasswordRef.current.value
+    );
+    this.setState({ validatePassword: isValidate });
+    if (isValidate) {
       const result = service.signup({
         username: this.usernameRef.current.value,
         password: this.passwordRef.current.value,
@@ -30,16 +31,17 @@ export default class Signup extends React.Component {
         confirmedPassword: this.confirmedPasswordRef.current.value
       });
       result.then(response => {
-        if (!response) {
-          this.setState({ redirect: response });
-        } else {
-          this.setState({ redirect: true });
+        if (response.message) {
+          //if user with such params already exists
+          alert(response.message);
         }
+        this.setState({ redirect: response.redirect });
       });
     }
   };
   render() {
     const { redirect } = this.state;
+    const { validatePassword } = this.state;
     if (redirect) {
       return <Redirect to="/notes" from="/signup" />;
     }
@@ -55,7 +57,6 @@ export default class Signup extends React.Component {
             name="username"
             ref={this.usernameRef}
           />
-
           <br />
           <input
             className="signup"
@@ -80,10 +81,7 @@ export default class Signup extends React.Component {
             name="confirmPassword"
             ref={this.confirmedPasswordRef}
           />
-          {!this.state.validatePassword ? (
-            <span>Passwords don't match</span>
-          ) : null}
-
+          {!validatePassword ? <span>Passwords don't match</span> : null}
           <br />
           <input
             type="submit"

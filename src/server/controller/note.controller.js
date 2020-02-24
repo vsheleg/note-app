@@ -1,20 +1,22 @@
 const service = require("../services/note.service");
 
 function addNote(req, res) {
+  console.log(req.body);
   service.addNote(req.body);
-  res.redirect("/notes/readAll");
+  res.send({});
+  // res.redirect("/notes/readAll");
 }
 
 function deleteNote(req, res) {
-  let noteId = req.params["noteId"];
+  const { noteId } = req.params;
   service.deleteNote(noteId);
-  res.end("");
+  res.send({});
 }
 
 function editNote(req, res) {
-  let noteId = req.params["noteId"];
+  const { noteId } = req.params;
   service.editNote(req.body, noteId);
-  res.end("true");
+  res.send({});
 }
 
 function getNotes(req, res) {
@@ -28,7 +30,7 @@ function getNotes(req, res) {
   });
 }
 function readNote(req, res) {
-  let noteId = req.params["noteId"];
+  const { noteId } = req.params;
   let file = service.readNote(noteId);
   file.then(data => res.end(JSON.stringify([data.note_content])));
 }

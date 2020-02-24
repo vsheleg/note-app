@@ -16,4 +16,8 @@ function signup(user) {
   return result;
 }
 
-export default { signup, login };
+function validatePassword(password, confirmedPassword) {
+  return password === confirmedPassword;
+}
+
+export default { signup, login, validatePassword };

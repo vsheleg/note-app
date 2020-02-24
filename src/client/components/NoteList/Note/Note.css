@@ -76,14 +76,12 @@ input[name="edit"] {
     float:right;
     border:1px solid var(--add-theme-color);
 }
-ш
 input[name="edit"]:focus {
-    border: 3px solid var(--add-theme-color);
-  }
-  input[name="delete"]:focus {
-    border: 3px solid var(--add-theme-color);
-  }
-  body {
-      text-align: center;
-  }
-  
+    border:3px solid var(--add-theme-color);
+}
+input[name="delete"]:focus {
+    border:3px solid var(--add-theme-color);
+}
+body {
+    text-align:center;
+}
