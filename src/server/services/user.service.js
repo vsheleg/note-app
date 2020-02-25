@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 
 function generateToken(user) {
   const data = {
-    email: user.email
+    email: user.email,
+    password: user.password
   };
   const signature = "MySuP3R_z3kr3t";
   const expiration = "6h";

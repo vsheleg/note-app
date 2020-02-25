@@ -3,8 +3,7 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   notesRouter = require("./routes/note.router"),
   userRouter = require("./routes/user.router"),
-  jwt = require("jsonwebtoken");
-model = require("./db/index");
+  middleware = require("./middleware/index.js");
 
 const app = express();
 app.use(cors());
@@ -16,25 +15,8 @@ app.get("/", function(req, res) {
   res.end("");
 });
 
-app.use("/notes", async function(req, res, next) {
-  if (req.headers.authorization != "null") {
-    req.userToken = req.headers.authorization;
-    next();
-  } else {
-    res.sendStatus(403); //if there is no token
-  }
-});
-
-app.use("/notes", async function(req, res, next) {
-  const decoded = jwt.decode(req.userToken);
-  const user = await model.User.findOne({
-    where: { email: decoded.data.email }
-  });
-  if (!user) {
-    res.sendStatus(403); //if such user doesn't exists
-  }
-  next();
-});
+app.use("/notes", middleware.findToken);
+app.use("/notes", middleware.validateToken);
 
 app.use("/user/", userRouter);
 app.use("/notes/", notesRouter);
