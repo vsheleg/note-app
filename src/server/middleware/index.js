@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken"),
   repository = require("../repositories/user.repository");
 
 async function findToken(req, res, next) {
+  //checks if there exists token
   if (req.headers.authorization != "null") {
     req.userToken = req.headers.authorization;
     next();
@@ -10,6 +11,7 @@ async function findToken(req, res, next) {
   }
 }
 async function validateToken(req, res, next) {
+  //decodes token
   const decoded = jwt.decode(req.userToken);
   const user = await repository.findUser(decoded.data);
   if (!user) {
