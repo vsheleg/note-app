@@ -14,8 +14,13 @@ class App extends React.Component {
     let obj = { notes: [] };
     let result = noteService.loadAllNotes();
     result.then(response => {
-      obj.notes = response;
-      this.setState(obj);
+      if (response.message) {
+        alert(response.message);
+        this.setState({ redirect: true });
+      } else {
+        obj.notes = response;
+        this.setState(obj);
+      }
     });
   };
   componentDidMount = () => {

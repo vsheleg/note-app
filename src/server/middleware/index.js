@@ -7,7 +7,7 @@ async function findToken(req, res, next) {
     req.userToken = req.headers.authorization;
     next();
   } else {
-    res.sendStatus(403); //if there is no token
+    res.send({ message: "Please, login" }); //if there is no token
   }
 }
 async function validateToken(req, res, next) {
