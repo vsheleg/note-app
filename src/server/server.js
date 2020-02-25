@@ -17,12 +17,21 @@ app.get("/", function(req, res) {
 });
 
 app.use("/notes", async function(req, res, next) {
-  const decoded = jwt.decode(req.headers.authorization);
+  if (req.headers.authorization != "null") {
+    req.userToken = req.headers.authorization;
+    next();
+  } else {
+    res.sendStatus(403); //if there is no token
+  }
+});
+
+app.use("/notes", async function(req, res, next) {
+  const decoded = jwt.decode(req.userToken);
   const user = await model.User.findOne({
     where: { email: decoded.data.email }
   });
   if (!user) {
-    res.forbidden();
+    res.sendStatus(403); //if such user doesn't exists
   }
   next();
 });

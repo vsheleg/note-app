@@ -41,7 +41,7 @@ class App extends React.Component {
   render() {
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/signup" from="/login" />;
+      return <Redirect to="/login" from="/notes" />;
     }
     return (
       <div id="container">
