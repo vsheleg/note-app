@@ -15,6 +15,18 @@ hr#title-line {
    
 }
 
+.primary {
+    cursor: pointer;
+
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+      font-family:var(--main-font);
+      background-color: var(--add-theme-color);
+      padding: 10px 18px;
+      color:white;
+  }
 .note{
     margin-right:8px;
     font-family: var(--main-font);

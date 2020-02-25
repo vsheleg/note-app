@@ -1,5 +1,6 @@
 import React from "react";
 import NoteList from "./NoteList/NoteList";
+import { Redirect } from "react-router-dom";
 import AddButton from "./Button/AddButton";
 import "./App.css";
 import noteService from "../services/note.service.js";
@@ -34,9 +35,23 @@ class App extends React.Component {
     await noteService.addNote(note);
     this.updateItems();
   };
+  logout = () => {
+    this.setState({ redirect: true });
+  };
   render() {
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/signup" from="/login" />;
+    }
     return (
       <div id="container">
+        <input
+          type="button"
+          onClick={this.logout}
+          name="exit"
+          className="primary"
+          id="logout"
+        />
         <AddButton onAdd={this.addNote} />
         <NoteList notes={this.state.notes} onDelete={this.deleteNote} />
       </div>

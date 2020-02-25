@@ -35,6 +35,7 @@ export default class Signup extends React.Component {
           //if user with such params already exists
           alert(response.message);
         }
+        localStorage.setItem("note-token", response.token);
         this.setState({ redirect: response.redirect });
       });
     }

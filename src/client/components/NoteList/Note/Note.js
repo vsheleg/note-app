@@ -7,12 +7,17 @@ class Note extends React.Component {
   constructor(props) {
     super(props);
     this.textInputRef = React.createRef();
-    this.state = { val: false, content: "", loading: false };
+    this.state = { val: false, content: "", loading: false, redirect: false };
   }
   updateItems = () => {
     let result = noteService.loadNote(this.props.note);
     result.then(response => {
-      let obj = { val: false, content: response, loading: true };
+      let obj = {
+        val: false,
+        content: response,
+        loading: true,
+        redirect: false
+      };
       this.setState(obj);
     });
   };
@@ -40,22 +45,25 @@ class Note extends React.Component {
       this.setState({ val: true });
     }
   };
+
   render() {
     return (
-      <div className="note">
-        <span id="title">{this.props.note}</span>
-        <hr id="title-line" />
-        <div className="note-content">{this.state.content}</div>
-        <input type="button" onClick={this.deleteItem} name="delete"></input>
-        <input type="button" onClick={this.editItem} name="edit"></input>
-        {this.state.val ? (
-          <input
-            type="text"
-            name="editNote"
-            id="editNote"
-            ref={this.textInputRef}
-          />
-        ) : null}
+      <div>
+        <div className="note">
+          <span id="title">{this.props.note}</span>
+          <hr id="title-line" />
+          <div className="note-content">{this.state.content}</div>
+          <input type="button" onClick={this.deleteItem} name="delete" />
+          <input type="button" onClick={this.editItem} name="edit" />
+          {this.state.val ? (
+            <input
+              type="text"
+              name="editNote"
+              id="editNote"
+              ref={this.textInputRef}
+            />
+          ) : null}
+        </div>
       </div>
     );
   }
