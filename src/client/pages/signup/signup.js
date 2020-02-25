@@ -15,6 +15,7 @@ export default class Signup extends React.Component {
       redirect: false,
       validatePassword: true
     };
+    localStorage.clear();
   }
   handleSubmit = e => {
     e.preventDefault();

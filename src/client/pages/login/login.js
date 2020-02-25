@@ -11,6 +11,7 @@ export default class Signin extends React.Component {
     this.passwordRef = React.createRef();
     this.emailRef = React.createRef();
     this.state = { redirect: false };
+    localStorage.clear();
   }
   handleSubmit = e => {
     e.preventDefault();
