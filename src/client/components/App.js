@@ -34,10 +34,11 @@ class App extends React.Component {
     let obj = this.state;
     obj.notes = obj.notes.filter(elem => elem !== note);
     this.setState(obj);
+    this.updateItems();
   };
 
   addNote = async note => {
-    await noteService.addNote(note);
+    let elem = await noteService.addNote({ value: note });
     this.updateItems();
   };
   logout = () => {

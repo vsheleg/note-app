@@ -15,7 +15,7 @@ async function editNote(body, noteId) {
 }
 async function addNote(body) {
   return await model.Notes.create({
-    note_content: body
+    note_content: body.value
   });
 }
 async function getNotes() {
