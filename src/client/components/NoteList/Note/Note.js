@@ -7,7 +7,7 @@ class Note extends React.Component {
   constructor(props) {
     super(props);
     this.textInputRef = React.createRef();
-    this.state = { val: false, content: "", loading: false, redirect: false };
+    this.state = { val: false, content: "", loading: false };
   }
   updateItems = () => {
     let result = noteService.loadNote(this.props.note);
@@ -15,8 +15,7 @@ class Note extends React.Component {
       let obj = {
         val: false,
         content: response,
-        loading: true,
-        redirect: false
+        loading: true
       };
       this.setState(obj);
     });

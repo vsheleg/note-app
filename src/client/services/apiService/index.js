@@ -10,7 +10,13 @@ async function request(path, params = {}) {
       "Content-Type": "application/json",
       ...(params.headers || {})
     }
-  }).then(response => response.json());
+  }).then(response => {
+    if (response.status !== 403) {
+      return response.json();
+    } else {
+      return response;
+    }
+  });
 }
 
 function deleteData(url) {

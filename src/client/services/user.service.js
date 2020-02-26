@@ -19,5 +19,11 @@ function signup(user) {
 function validatePassword(password, confirmedPassword) {
   return password === confirmedPassword;
 }
+function validateAllFields(username, password, confirmedPassword, email) {
+  if (!username || !password || !confirmedPassword || !email) {
+    return false;
+  }
+  return true;
+}
 
-export default { signup, login, validatePassword };
+export default { signup, login, validatePassword, validateAllFields };

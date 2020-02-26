@@ -19,26 +19,36 @@ export default class Signup extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    const isValidate = service.validatePassword(
+    const isValidPassword = service.validatePassword(
       this.passwordRef.current.value,
       this.confirmedPasswordRef.current.value
     );
-    this.setState({ validatePassword: isValidate });
-    if (isValidate) {
-      const signupPromise = service.signup({
-        username: this.usernameRef.current.value,
-        password: this.passwordRef.current.value,
-        email: this.emailRef.current.value,
-        confirmedPassword: this.confirmedPasswordRef.current.value
-      });
-      signupPromise.then(response => {
-        if (response.message) {
-          //if user with such params already exists
-          alert(response.message);
-        }
-        localStorage.setItem("note-token", response.token);
-        this.setState({ redirect: response.redirect });
-      });
+    const isValidInput = service.validateAllFields(
+      this.usernameRef.current.value,
+      this.passwordRef.current.value,
+      this.confirmedPasswordRef.current.value,
+      this.emailRef.current.value
+    );
+    this.setState({ validatePassword: isValidPassword });
+    if (isValidInput) {
+      if (isValidPassword) {
+        const signupPromise = service.signup({
+          username: this.usernameRef.current.value,
+          password: this.passwordRef.current.value,
+          email: this.emailRef.current.value,
+          confirmedPassword: this.confirmedPasswordRef.current.value
+        });
+        signupPromise.then(response => {
+          if (response.message) {
+            //if user with such params already exists
+            alert(response.message);
+          }
+          localStorage.setItem("note-token", response.token);
+          this.setState({ redirect: response.redirect });
+        });
+      }
+    } else {
+      alert("Fill all fields, please");
     }
   };
   render() {
