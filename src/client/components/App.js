@@ -13,17 +13,15 @@ class App extends React.Component {
   updateItems = () => {
     let obj = { notes: [] };
     let result = noteService.loadAllNotes();
-    result
-      .then(response => {
-        if (response.status) {
-          alert(response.statusText); //Forbidden
-          this.setState({ redirect: true }); //redirects to login
-        } else {
-          obj.notes = response;
-          this.setState(obj);
-        }
-      })
-      .catch(error => console.log(error));
+    result.then(response => {
+      if (response.status) {
+        alert(response.statusText); //Forbidden
+        this.setState({ redirect: true }); //redirects to login
+      } else {
+        obj.notes = response;
+        this.setState(obj);
+      }
+    });
   };
   componentDidMount = () => {
     this.updateItems();
