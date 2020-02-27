@@ -1,39 +1,36 @@
-import React, { createRef, useState, useEffect } from "react";
+import React, { createRef, useState, useEffect, useRef } from "react";
 import noteService from "../../../services/note.service";
 import "./Note.css";
 import "../../../pages/signup/signup.css";
 
 export default function Note(props) {
-  const [val, setVal] = useState(false);
+  const [editInput, setEditInput] = useState(false);
   const [content, setContent] = useState("");
-  const textInput = React.createRef();
+  const textInput = useRef(null);
 
   const updateItems = () => {
-    let result = noteService.loadNote(props.note);
-    result.then(response => {
+    let loadNotePromise = noteService.loadNote(props.note);
+    loadNotePromise.then(response => {
       setContent(response);
     });
   };
 
   useEffect(() => {
     updateItems();
-  }, [val]);
+  }, [editInput]);
 
   function deleteItem() {
     props.onDelete(props.note);
   }
 
   async function editItem() {
-    if (val) {
-      let newValue = textInput.current.value;
-      await noteService.editNote(
-        { value: textInput.current.value },
-        props.note
-      );
+    if (editInput) {
+      const newValue = textInput.current.value;
+      await noteService.editNote({ val: textInput.current.value }, props.note);
       setContent(newValue);
-      setVal(false);
+      setEditInput(false);
     } else {
-      setVal(true);
+      setEditInput(true);
     }
   }
 
@@ -45,7 +42,7 @@ export default function Note(props) {
         <div className="note-content">{content}</div>
         <input type="button" onClick={deleteItem} name="delete" />
         <input type="button" onClick={editItem} name="edit" />
-        {val ? (
+        {editInput ? (
           <input type="text" name="editNote" id="editNote" ref={textInput} />
         ) : null}
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import service from "../../services/user.service";
 import "../main.css";
 import "./signup.css";
@@ -6,10 +6,10 @@ import { Redirect } from "react-router-dom";
 
 export default function Signup(props) {
   const [redirect, setRedirect] = useState(false);
-  const passwordRef = React.createRef();
-  const usernameRef = React.createRef();
-  const emailRef = React.createRef();
-  const confirmedPasswordRef = React.createRef();
+  const passwordRef = useRef(null);
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const confirmedPasswordRef = useRef(null);
 
   function handleSubmit(e) {
     e.preventDefault();

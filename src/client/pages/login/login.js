@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import service from "../../services/user.service";
 import { Redirect } from "react-router-dom";
 import "../main.css";
@@ -6,8 +6,8 @@ import "./login.css";
 const KEY = "note-token";
 
 export default function Signin(props) {
-  const passwordRef = React.createRef();
-  const emailRef = React.createRef();
+  const passwordRef = useRef(null);
+  const emailRef = useRef(null);
   const [redirect, setRedirect] = useState(false);
 
   function handleSubmit(e) {
