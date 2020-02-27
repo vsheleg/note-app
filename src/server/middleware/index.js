@@ -6,13 +6,8 @@ async function resolveUser(req, res, next) {
   if (req.headers.authorization) {
     req.userToken = req.headers.authorization;
     const decoded = jwt.decode(req.userToken);
-    if (decoded) {
-      req.decodedUser = decoded.data;
-      next();
-    } else {
-      res.sendStatus(403);
-      //if there is no token
-    }
+    req.decodedUser = decoded || { email: "", password: "" };
+    next();
   }
 }
 async function validateUser(req, res, next) {

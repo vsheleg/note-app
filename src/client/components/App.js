@@ -29,15 +29,15 @@ class App extends React.Component {
 
   deleteNote = async note => {
     await noteService.deleteNote(note);
-    this.setState(prevNotes => ({
-      notes: prevNotes.notes.filter(elem => elem !== note)
+    this.setState(({ notes: prevNotes }) => ({
+      notes: prevNotes.filter(elem => elem !== note)
     }));
   };
 
   addNote = async note => {
     let elem = await noteService.addNote({ value: note });
-    this.setState(prevNotes => ({
-      notes: prevNotes.notes.concat(elem.note.id)
+    this.setState(({ notes: prevNotes }) => ({
+      notes: prevNotes.concat(elem.note.id)
     }));
   };
   logout = () => {
