@@ -1,42 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import service from "../../services/user.service";
 import "../main.css";
 import "./signup.css";
 import { Redirect } from "react-router-dom";
 
-export default class Signup extends React.Component {
-  constructor(props) {
-    super(props);
-    this.passwordRef = React.createRef();
-    this.usernameRef = React.createRef();
-    this.emailRef = React.createRef();
-    this.confirmedPasswordRef = React.createRef();
-    this.state = {
-      redirect: false,
-      validatePassword: true
-    };
-    localStorage.clear();
-  }
-  handleSubmit = e => {
+export default function Signup(props) {
+  const [redirect, setRedirect] = useState(false);
+  const [validatePassword, setValidatePassword] = useState(true);
+  const passwordRef = React.createRef();
+  const usernameRef = React.createRef();
+  const emailRef = React.createRef();
+  const confirmedPasswordRef = React.createRef();
+
+  function handleSubmit(e) {
     e.preventDefault();
     const isValidPassword = service.validatePassword(
-      this.passwordRef.current.value,
-      this.confirmedPasswordRef.current.value
+      passwordRef.current.value,
+      confirmedPasswordRef.current.value
     );
     const isValidInput = service.validateAllFields(
-      this.usernameRef.current.value,
-      this.passwordRef.current.value,
-      this.confirmedPasswordRef.current.value,
-      this.emailRef.current.value
+      usernameRef.current.value,
+      passwordRef.current.value,
+      confirmedPasswordRef.current.value,
+      emailRef.current.value
     );
-    this.setState({ validatePassword: isValidPassword });
+    setValidatePassword(isValidPassword);
     if (isValidInput) {
       if (isValidPassword) {
         const signupPromise = service.signup({
-          username: this.usernameRef.current.value,
-          password: this.passwordRef.current.value,
-          email: this.emailRef.current.value,
-          confirmedPassword: this.confirmedPasswordRef.current.value
+          username: usernameRef.current.value,
+          password: passwordRef.current.value,
+          email: emailRef.current.value,
+          confirmedPassword: confirmedPasswordRef.current.value
         });
         signupPromise.then(response => {
           if (response.message) {
@@ -44,64 +39,56 @@ export default class Signup extends React.Component {
             alert(response.message);
           }
           localStorage.setItem("note-token", response.token);
-          this.setState({ redirect: response.redirect });
+          setRedirect(response.redirect);
         });
       }
     } else {
       alert("Fill all fields, please");
     }
-  };
-  render() {
-    const { redirect, validatePassword } = this.state;
-    if (redirect) {
-      return <Redirect to="/notes" from="/signup" />;
-    }
-    return (
-      <div id="form-registration">
-        <form onSubmit={this.handleSubmit} method="post">
-          <p id="form-header">Register</p>
-          <hr />
-          <input
-            className="signup"
-            type="text"
-            placeholder="Name"
-            name="username"
-            ref={this.usernameRef}
-          />
-          <br />
-          <input
-            className="signup"
-            type="email"
-            placeholder="E-mail"
-            name="email"
-            ref={this.emailRef}
-          />
-          <br />
-          <input
-            className="signup"
-            type="password"
-            placeholder="Password"
-            name="password"
-            ref={this.passwordRef}
-          />
-          <br />
-          <input
-            className="signup"
-            type="password"
-            placeholder="Confirm password"
-            name="confirmPassword"
-            ref={this.confirmedPasswordRef}
-          />
-          {!validatePassword ? <span>Passwords don't match</span> : null}
-          <br />
-          <input
-            type="submit"
-            class="primary"
-            id="signup-btn"
-            value="Sign up"
-          />
-        </form>
-      </div>
-    );
   }
+  if (redirect) {
+    return <Redirect to="/notes" from="/signup" />;
+  }
+  return (
+    <div id="form-registration" onload={localStorage.clear()}>
+      <form onSubmit={handleSubmit} method="post">
+        <p id="form-header">Register</p>
+        <hr />
+        <input
+          className="signup"
+          type="text"
+          placeholder="Name"
+          name="username"
+          ref={usernameRef}
+        />
+        <br />
+        <input
+          className="signup"
+          type="email"
+          placeholder="E-mail"
+          name="email"
+          ref={emailRef}
+        />
+        <br />
+        <input
+          className="signup"
+          type="password"
+          placeholder="Password"
+          name="password"
+          ref={passwordRef}
+        />
+        <br />
+        <input
+          className="signup"
+          type="password"
+          placeholder="Confirm password"
+          name="confirmPassword"
+          ref={confirmedPasswordRef}
+        />
+        {!validatePassword ? <span>Passwords don't match</span> : null}
+        <br />
+        <input type="submit" class="primary" id="signup-btn" value="Sign up" />
+      </form>
+    </div>
+  );
 }

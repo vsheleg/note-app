@@ -26,8 +26,8 @@ async function signup(user) {
       redirect: false
     };
   } else {
-    const createdUser = repository.createUser(user);
-    return { redirect: createdUser, token: generateToken(user) };
+    await repository.createUser(user);
+    return { redirect: true, token: generateToken(user) };
   }
 }
 
