@@ -2,19 +2,19 @@ const service = require("../services/note.service");
 
 async function addNote(req, res) {
   const result = await service.addNote(req.body);
-  res.send(result);
+  res.send({ note: result });
 }
 
 async function deleteNote(req, res) {
   const { noteId } = req.params;
   const result = await service.deleteNote(noteId);
-  res.send(result);
+  res.send({ note: result });
 }
 
 async function editNote(req, res) {
   const { noteId } = req.params;
   const result = await service.editNote(req.body, noteId);
-  res.send(result);
+  res.send({ note: result });
 }
 
 async function getNotes(req, res) {

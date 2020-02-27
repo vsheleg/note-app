@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", function(req, res) {
   res.end("");
 });
+
 app.use("/user/", userRouter);
 app.use("/notes/", notesRouter);
 

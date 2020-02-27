@@ -12,8 +12,11 @@ class Note extends React.Component {
   updateItems = () => {
     let result = noteService.loadNote(this.props.note);
     result.then(response => {
-      let obj = { val: false, content: response, loading: true };
-      this.setState(obj);
+      this.setState({
+        val: false,
+        content: response,
+        loading: true
+      });
     });
   };
   componentDidMount = () => {
@@ -25,10 +28,10 @@ class Note extends React.Component {
     this.props.onDelete(this.props.note);
   };
 
-  editItem = () => {
+  editItem = async () => {
     if (this.state.val) {
       let newValue = this.textInputRef.current.value;
-      noteService.editNote(
+      await noteService.editNote(
         { value: this.textInputRef.current.value },
         this.props.note
       );
@@ -40,23 +43,25 @@ class Note extends React.Component {
       this.setState({ val: true });
     }
   };
-  addItem = () => {};
+
   render() {
     return (
-      <div className="note">
-        <span id="title">{this.props.note}</span>
-        <hr id="title-line" />
-        <div className="note-content">{this.state.content}</div>
-        <input type="button" onClick={this.deleteItem} name="delete"></input>
-        <input type="button" onClick={this.editItem} name="edit"></input>
-        {this.state.val ? (
-          <input
-            type="text"
-            name="editNote"
-            id="editNote"
-            ref={this.textInputRef}
-          />
-        ) : null}
+      <div>
+        <div className="note">
+          <span id="title">{this.props.note}</span>
+          <hr id="title-line" />
+          <div className="note-content">{this.state.content}</div>
+          <input type="button" onClick={this.deleteItem} name="delete" />
+          <input type="button" onClick={this.editItem} name="edit" />
+          {this.state.val ? (
+            <input
+              type="text"
+              name="editNote"
+              id="editNote"
+              ref={this.textInputRef}
+            />
+          ) : null}
+        </div>
       </div>
     );
   }

@@ -15,11 +15,6 @@ export default function Header(props) {
           Sign in
         </Link>
       </li>
-      <li>
-        <Link className="link" to="/notes">
-          Notes
-        </Link>
-      </li>
     </ul>
   );
 }

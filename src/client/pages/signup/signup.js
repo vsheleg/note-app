@@ -12,37 +12,36 @@ export default class Signup extends React.Component {
     this.emailRef = React.createRef();
     this.confirmedPasswordRef = React.createRef();
     this.state = {
-      redirect: false,
-      validatePassword: true
+      redirect: false
     };
+    localStorage.clear();
   }
   handleSubmit = e => {
     e.preventDefault();
-    const isValidate = service.validatePassword(
-      this.passwordRef.current.value,
-      this.confirmedPasswordRef.current.value
-    );
-    this.setState({ validatePassword: isValidate });
-    if (isValidate) {
-      const result = service.signup({
-        username: this.usernameRef.current.value,
-        password: this.passwordRef.current.value,
-        email: this.emailRef.current.value,
-        confirmedPassword: this.confirmedPasswordRef.current.value
-      });
-      result.then(response => {
+    const user = {
+      username: this.usernameRef.current.value,
+      password: this.passwordRef.current.value,
+      email: this.emailRef.current.value,
+      confirmedPassword: this.confirmedPasswordRef.current.value
+    };
+    const isValidInput = service.validateAllFields(user);
+    if (isValidInput) {
+      const signupPromise = service.signup(user);
+      signupPromise.then(response => {
         if (response.message) {
           //if user with such params already exists
           alert(response.message);
         }
         this.setState({ redirect: response.redirect });
       });
+    } else {
+      alert("Fill all fields, please");
     }
   };
   render() {
-    const { redirect, validatePassword } = this.state;
+    const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/notes" from="/signup" />;
+      return <Redirect to="/login" from="/signup" />;
     }
     return (
       <div id="form-registration">
@@ -80,7 +79,7 @@ export default class Signup extends React.Component {
             name="confirmPassword"
             ref={this.confirmedPasswordRef}
           />
-          {!validatePassword ? <span>Passwords don't match</span> : null}
+
           <br />
           <input
             type="submit"

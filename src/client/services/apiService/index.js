@@ -1,17 +1,23 @@
 const BASEURI = "http://localhost:3002/";
+const KEY = "note-token";
 
 async function request(path, params = {}) {
-  // let token = await localStorage.getItem(key);
+  const token = await localStorage.getItem(KEY);
   return fetch(BASEURI + path, {
     ...params,
     headers: {
-      //token: token,
+      Authorization: token,
       "Content-Type": "application/json",
       ...(params.headers || {})
     }
-  }).then(response => response.json());
+  }).then(response => {
+    if (response.status !== 403) {
+      return response.json();
+    } else {
+      return { error: response };
+    }
+  });
 }
-
 function deleteData(url) {
   return request(url, {
     method: "delete"
