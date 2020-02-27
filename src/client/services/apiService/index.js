@@ -14,11 +14,10 @@ async function request(path, params = {}) {
     if (response.status !== 403) {
       return response.json();
     } else {
-      return response;
+      return { error: response };
     }
   });
 }
-
 function deleteData(url) {
   return request(url, {
     method: "delete"

@@ -14,8 +14,8 @@ class App extends React.Component {
     let obj = { notes: [] };
     let result = noteService.loadAllNotes();
     result.then(response => {
-      if (response.status) {
-        alert(response.statusText); //Forbidden
+      if (response.error) {
+        alert(response.error.statusText); //Forbidden
         this.setState({ redirect: true }); //redirects to login
       } else {
         obj.notes = response;
@@ -39,7 +39,9 @@ class App extends React.Component {
 
   addNote = async note => {
     let elem = await noteService.addNote({ value: note });
-    this.updateItems();
+    let obj = this.state;
+    obj.notes.push(elem.note.id);
+    this.setState(obj);
   };
   logout = () => {
     this.setState({ redirect: true });

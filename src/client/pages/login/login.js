@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 import "../main.css";
 import "./login.css";
 
+const KEY = "note-token";
+
 export default class Signin extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ export default class Signin extends React.Component {
       email: this.emailRef.current.value
     });
     loginPromise.then(response => {
-      localStorage.setItem("note-token", response.token);
+      localStorage.setItem(KEY, response.token);
       this.setState({ redirect: response.redirect });
     });
   };

@@ -1,17 +1,5 @@
 const repository = require("../repositories/user.repository");
-
-const jwt = require("jsonwebtoken");
-
-function generateToken(user) {
-  const data = {
-    email: user.email,
-    password: user.password
-  };
-  const signature = "MySuP3R_z3kr3t";
-  const expiration = "6h";
-
-  return jwt.sign({ data }, signature, { expiresIn: expiration });
-}
+const generateToken = require("./jwt.service");
 
 async function loginUser(user) {
   const existingUser = await repository.findUser(user);
@@ -27,7 +15,7 @@ async function signup(user) {
     };
   } else {
     const createdUser = repository.createUser(user);
-    return { redirect: createdUser, token: generateToken(user) };
+    return { redirect: createdUser };
   }
 }
 

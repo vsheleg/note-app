@@ -16,14 +16,19 @@ function signup(user) {
   return result;
 }
 
-function validatePassword(password, confirmedPassword) {
-  return password === confirmedPassword;
-}
-function validateAllFields(username, password, confirmedPassword, email) {
-  if (!username || !password || !confirmedPassword || !email) {
+function validateAllFields(user) {
+  if (
+    !user.username ||
+    !user.password ||
+    !user.confirmedPassword ||
+    !user.email
+  ) {
+    return false;
+  }
+  if (user.confirmedPassword !== user.password) {
     return false;
   }
   return true;
 }
 
-export default { signup, login, validatePassword, validateAllFields };
+export default { signup, login, validateAllFields };
