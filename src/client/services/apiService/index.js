@@ -2,7 +2,7 @@ const BASEURI = "http://localhost:3002/";
 const KEY = "note-token";
 
 async function request(path, params = {}) {
-  let token = await localStorage.getItem(KEY);
+  const token = await localStorage.getItem(KEY);
   return fetch(BASEURI + path, {
     ...params,
     headers: {

@@ -18,7 +18,7 @@ export default class Signup extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    let user = {
+    const user = {
       username: this.usernameRef.current.value,
       password: this.passwordRef.current.value,
       email: this.emailRef.current.value,

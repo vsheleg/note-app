@@ -3,8 +3,8 @@ const controller = require("../controller/note.controller");
 const middleware = require("../middleware");
 const notesRouter = express.Router();
 
-notesRouter.use(middleware.findToken);
-notesRouter.use(middleware.validateToken);
+notesRouter.use(middleware.resolveUser);
+notesRouter.use(middleware.validateUser);
 
 notesRouter.delete("/delete/:noteId", controller.deleteNote);
 notesRouter.get("/read/:noteId", controller.readNote);

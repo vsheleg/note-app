@@ -11,15 +11,13 @@ class App extends React.Component {
     this.state = { notes: [] };
   }
   updateItems = () => {
-    let obj = { notes: [] };
     let result = noteService.loadAllNotes();
     result.then(response => {
       if (response.error) {
         alert(response.error.statusText); //Forbidden
         this.setState({ redirect: true }); //redirects to login
       } else {
-        obj.notes = response;
-        this.setState(obj);
+        this.setState({ notes: response });
       }
     });
   };
@@ -31,17 +29,16 @@ class App extends React.Component {
 
   deleteNote = async note => {
     await noteService.deleteNote(note);
-    let obj = this.state;
-    obj.notes = obj.notes.filter(elem => elem !== note);
-    this.setState(obj);
-    this.updateItems();
+    this.setState(prevNotes => ({
+      notes: prevNotes.notes.filter(elem => elem !== note)
+    }));
   };
 
   addNote = async note => {
     let elem = await noteService.addNote({ value: note });
-    let obj = this.state;
-    obj.notes.push(elem.note.id);
-    this.setState(obj);
+    this.setState(prevNotes => ({
+      notes: prevNotes.notes.concat(elem.note.id)
+    }));
   };
   logout = () => {
     this.setState({ redirect: true });
