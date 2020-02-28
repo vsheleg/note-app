@@ -9,10 +9,7 @@ export default function Note(props) {
   const textInput = useRef(null);
 
   const updateItems = () => {
-    let loadNotePromise = noteService.loadNote(props.note);
-    loadNotePromise.then(response => {
-      setContent(response);
-    });
+    noteService.loadNote(props.note).then(setContent);
   };
 
   useEffect(() => {
