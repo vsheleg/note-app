@@ -20,9 +20,9 @@ export default function App({}) {
       }
     });
   };
-  useCallback(() => {
+  useEffect(() => {
     updateItems();
-  }, [notes]);
+  }, [redirect]);
 
   async function deleteNote(note) {
     await noteService.deleteNote(note);
