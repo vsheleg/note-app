@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./AddButton.css";
-import { render } from "@testing-library/react";
 
-export default function AddButton(props) {
-  const textInputRef = React.createRef();
+export default function AddButton({ onAdd }) {
+  const textInputRef = useRef(null);
 
   function addNote() {
-    props.onAdd(textInputRef.current.value);
+    onAdd(textInputRef.current.value);
   }
   return (
     <div>

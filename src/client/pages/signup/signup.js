@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import service from "../../services/user.service";
 import "../main.css";
 import "./signup.css";
 import { Redirect } from "react-router-dom";
 
-export default function Signup(props) {
+export default function Signup({}) {
   const [redirect, setRedirect] = useState(false);
   const passwordRef = useRef(null);
   const usernameRef = useRef(null);
@@ -38,7 +38,7 @@ export default function Signup(props) {
     return <Redirect to="/login" from="/signup" />;
   }
   return (
-    <div id="form-registration" onload={localStorage.clear()}>
+    <div id="form-registration" onLoad={localStorage.clear()}>
       <form onSubmit={handleSubmit} method="post">
         <p id="form-header">Register</p>
         <hr />

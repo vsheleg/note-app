@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import service from "../../services/user.service";
 import { Redirect } from "react-router-dom";
 import "../main.css";
 import "./login.css";
 const KEY = "note-token";
 
-export default function Signin(props) {
+export default function Signin({}) {
   const passwordRef = useRef(null);
   const emailRef = useRef(null);
   const [redirect, setRedirect] = useState(false);
@@ -45,7 +45,12 @@ export default function Signin(props) {
           ref={passwordRef}
         />
         <br />
-        <input type="submit" class="primary" id="login-btn" value="Sign in" />
+        <input
+          type="submit"
+          class="primary login"
+          id="login-btn"
+          value="Sign in"
+        />
       </form>
     </div>
   );

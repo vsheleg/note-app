@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import NoteList from "./NoteList/NoteList";
 import { Redirect } from "react-router-dom";
 import AddButton from "./Button/AddButton";
 import "./App.css";
 import noteService from "../services/note.service.js";
 
-export default function App(props) {
+export default function App({}) {
   const [notes, setNotes] = useState([]);
   const [redirect, setRedirect] = useState(false);
 
@@ -20,9 +20,9 @@ export default function App(props) {
       }
     });
   };
-  useEffect(() => {
+  useCallback(() => {
     updateItems();
-  }, [redirect]);
+  }, [notes]);
 
   async function deleteNote(note) {
     await noteService.deleteNote(note);
