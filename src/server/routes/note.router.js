@@ -4,7 +4,6 @@ const middleware = require("../middleware");
 const notesRouter = express.Router();
 
 notesRouter.use(middleware.resolveUser);
-//notesRouter.use(middleware.validateUser);
 
 notesRouter.delete("/:noteId", controller.deleteNote);
 notesRouter.get("/:noteId", controller.readNote);
