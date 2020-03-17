@@ -1,4 +1,4 @@
-let model = require("../db/index");
+const model = require("../db/index");
 
 async function deleteNote(noteId) {
   return await model.Notes.destroy({

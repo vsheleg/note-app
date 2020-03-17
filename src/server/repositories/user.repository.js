@@ -1,4 +1,4 @@
-let model = require("../db/index");
+const model = require("../db/index");
 
 async function createUser(user) {
   return await model.User.create({
