@@ -1,7 +1,7 @@
 :root {
     --main-theme-color:#a5a9ab;
     --add-theme-color:#013ca6;
-    --main-font: 'Podkova';
+    --main-font: 'Roboto';
 }
 #form-login {
     width: 350px;

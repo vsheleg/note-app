@@ -1,3 +1,8 @@
+:root {
+  --main-theme-color:#a5a9ab;
+  --add-theme-color:#013ca6;
+  --main-font: 'Podkova';
+}
 /* latin-ext */
 @font-face {
   font-family: 'Bree Serif';
@@ -61,3 +66,12 @@
     src: url(https://fonts.gstatic.com/s/podkova/v16/K2FufZ1EmftJSV9VQpXb1lo9vC3nZWtFzfU_GIs.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
+#notes-header{
+width: 100%;
+background-color: var(--add-theme-color);
+height:30px;    
+padding: 10px 0px;
+color:white;
+font-family: var(--main-font);
+font-size: larger;
+}

@@ -17,4 +17,4 @@ app.get("/", function(req, res) {
 app.use("/user/", userRouter);
 app.use("/notes/", notesRouter);
 
-app.listen(3002);
+app.listen(process.env.PORT);

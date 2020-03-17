@@ -1,8 +1,9 @@
 :root {
     --main-theme-color:#a5a9ab;
     --add-theme-color:#013ca6;
-    --main-font: 'Podkova';
+    --main-font: 'Roboto';
 }
+
 hr {
     width: 250px;
 }
@@ -58,12 +59,9 @@ ul.nav li {
     background-color:var(--add-theme-color);
     font-family:var(--main-font);
     font-size: larger;
-
-    height:30px;
-    width: 50%;
-
+    width: 33.3%;
     text-align: center;
-    padding: 10px 0px;
+
 }
 
 .link {
@@ -71,6 +69,12 @@ ul.nav li {
     text-decoration: none;
     color:white;
     width: 50%;
+}
+a.link {
+    display: block;
+    height:30px;
+    width: 100%;
+    padding: 10px 0px;
 }
 ul.nav li:hover {
     background-color:grey;
@@ -91,4 +95,8 @@ ul.nav li:hover {
 #form-header {
     font-size: x-large;
     font-weight: 500;
+}
+
+ul.nav {
+    display: inline;
 }

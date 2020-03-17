@@ -4,12 +4,11 @@ const middleware = require("../middleware");
 const notesRouter = express.Router();
 
 notesRouter.use(middleware.resolveUser);
-notesRouter.use(middleware.validateUser);
 
-notesRouter.delete("/delete/:noteId", controller.deleteNote);
-notesRouter.get("/read/:noteId", controller.readNote);
-notesRouter.get("/readAll", controller.getNotes);
-notesRouter.post("/edit/:noteId", controller.editNote);
-notesRouter.post("/add", controller.addNote);
+notesRouter.delete("/:noteId", controller.deleteNote);
+notesRouter.get("/:noteId", controller.readNote);
+notesRouter.get("/", controller.getNotes);
+notesRouter.put("/:noteId", controller.editNote);
+notesRouter.post("/", controller.addNote);
 
 module.exports = notesRouter;

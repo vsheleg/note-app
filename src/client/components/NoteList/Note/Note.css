@@ -1,18 +1,20 @@
 :root {
     --main-note-color:#f8dfc2;
     --add-theme-color:#013ca6;
-    --main-font: 'Podkova';
+    --main-font: 'Roboto';
 }
 
 body {
     text-align:center;
 }
-
 hr#title-line {
-    width: 165px;
+    width: 95%;
     background-color: grey;
     border: none;
     height:1px;
+}
+.edit-icon {
+width: 50%;
 }
 #title {
     font-family: var(--main-font);
@@ -24,7 +26,6 @@ hr#title-line {
 .primary {
     cursor: pointer;
     border: none;
-
     font-family:var(--main-font);
     background-color: var(--add-theme-color);
     color:white;
@@ -36,7 +37,7 @@ hr#title-line {
     height:170px;
     display: block;
     margin-right:8px;
-    padding: 10px;
+    padding: 5px 10px 15px 5px;
     
     font-family: var(--main-font);
 
@@ -47,24 +48,39 @@ hr#title-line {
 }
 
 input#editNote {    
-    float:right;
+text-align: center;
     display: block;
-    width:80px;
-    position: relative;
+   width:100%;
+   border:none;
+   height:100%;
+   background-color:white;
+
 }
+
+input#editNote:enabled {
+    background-color:white;
+    border:none;
+    font-size: medium;
+    outline: none;
+    font-family: var(--main-font);
+}
+
+
 .note-content {
     display: block;
     padding:5px;
     word-wrap: break-word;
-    width: 150px;
+    width: 90%;
     height: 100px;
-
     background-color: var(--main-note-color);
     border-radius: 3%;
     white-space: normal;
+    text-align: center;
 
 }
-
+.shared-note {
+    width:200px;
+}
 li {
     width:200px;
     list-style-type: none;    
@@ -74,20 +90,8 @@ ul {
     padding:0;
     list-style-type: none;
 }
-input[name="delete"] {
-    display:block;
-    width:10px;
-    height:25px;
-    float:right;
-
-    border: none;
-    background-color: transparent;
-    background-image: url('images/close.png');
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    background-position: center;
-    opacity: 0.5;
-   
+.icon-button {
+    float: right;
 }
 input[name="edit"] {
     display:block;
