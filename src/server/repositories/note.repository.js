@@ -9,7 +9,7 @@ async function deleteNote(noteId) {
 }
 async function editNote(body, noteId) {
   return await model.Notes.update(
-    { note_content: body.value },
+    { note_content: body.val },
     { where: { id: noteId } }
   );
 }

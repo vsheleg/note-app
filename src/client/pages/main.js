@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
 import App from "../components/App";
 import Signin from "./login/login";
@@ -6,7 +6,7 @@ import Signup from "./signup/signup";
 import Header from "./Header";
 import "./main.css";
 
-export default function Main(props) {
+export default function Main({}) {
   return (
     <Router>
       <Header />

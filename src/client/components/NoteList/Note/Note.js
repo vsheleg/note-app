@@ -1,70 +1,48 @@
-import React, { createRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import noteService from "../../../services/note.service";
 import "./Note.css";
 import "../../../pages/signup/signup.css";
 
-class Note extends React.Component {
-  constructor(props) {
-    super(props);
-    this.textInputRef = React.createRef();
-    this.state = { val: false, content: "", loading: false };
-  }
-  updateItems = () => {
-    let result = noteService.loadNote(this.props.note);
-    result.then(response => {
-      this.setState({
-        val: false,
-        content: response,
-        loading: true
-      });
-    });
-  };
-  componentDidMount = () => {
-    this.updateItems();
-  };
-  componentDidUpdate = () => {};
-  componentWillUnmount = () => {};
-  deleteItem = () => {
-    this.props.onDelete(this.props.note);
+export default function Note({ note, onDelete }) {
+  const [editInput, setEditInput] = useState(false);
+  const [content, setContent] = useState("");
+  const textInput = useRef(null);
+
+  const updateItems = () => {
+    noteService.loadNote(note).then(setContent);
   };
 
-  editItem = async () => {
-    if (this.state.val) {
-      let newValue = this.textInputRef.current.value;
-      await noteService.editNote(
-        { value: this.textInputRef.current.value },
-        this.props.note
-      );
-      this.setState({
-        content: newValue,
-        val: false
-      });
+  useEffect(() => {
+    updateItems();
+  }, [editInput]);
+
+  function deleteItem() {
+    onDelete(note);
+  }
+
+  async function editItem() {
+    if (editInput) {
+      const newValue = textInput.current.value;
+      await noteService.editNote({ val: newValue }, note);
+      setContent(newValue);
+      setEditInput(false);
     } else {
-      this.setState({ val: true });
+      setEditInput(true);
     }
-  };
-
-  render() {
-    return (
-      <div>
-        <div className="note">
-          <span id="title">{this.props.note}</span>
-          <hr id="title-line" />
-          <div className="note-content">{this.state.content}</div>
-          <input type="button" onClick={this.deleteItem} name="delete" />
-          <input type="button" onClick={this.editItem} name="edit" />
-          {this.state.val ? (
-            <input
-              type="text"
-              name="editNote"
-              id="editNote"
-              ref={this.textInputRef}
-            />
-          ) : null}
-        </div>
-      </div>
-    );
   }
-}
 
-export default Note;
+  return (
+    <div>
+      <div className="note">
+        <span id="title">{note}</span>
+        <hr id="title-line" />
+        <div className="note-content">{content}</div>
+        <input type="button" onClick={deleteItem} name="delete" />
+        <input type="button" onClick={editItem} name="edit" />
+        {editInput ? (
+          <input type="text" name="editNote" id="editNote" ref={textInput} />
+        ) : null}
+      </div>
+    </div>
+  );
+}

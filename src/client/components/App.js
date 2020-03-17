@@ -1,66 +1,56 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import NoteList from "./NoteList/NoteList";
 import { Redirect } from "react-router-dom";
 import AddButton from "./Button/AddButton";
 import "./App.css";
 import noteService from "../services/note.service.js";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { notes: [] };
-  }
-  updateItems = () => {
+export default function App({}) {
+  const [notes, setNotes] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+
+  const updateItems = () => {
     let result = noteService.loadAllNotes();
     result.then(response => {
       if (response.error) {
         alert(response.error.statusText); //Forbidden
-        this.setState({ redirect: true }); //redirects to login
+        setRedirect(true); //redirects to login
       } else {
-        this.setState({ notes: response });
+        setNotes(response);
       }
     });
   };
-  componentDidMount = () => {
-    this.updateItems();
-  };
-  componentDidUpdate = () => {};
-  componentWillUnmount = () => {};
+  useEffect(() => {
+    updateItems();
+  }, [redirect]);
 
-  deleteNote = async note => {
+  async function deleteNote(note) {
     await noteService.deleteNote(note);
-    this.setState(({ notes: prevNotes }) => ({
-      notes: prevNotes.filter(elem => elem !== note)
-    }));
-  };
-
-  addNote = async note => {
-    let elem = await noteService.addNote({ value: note });
-    this.setState(({ notes: prevNotes }) => ({
-      notes: prevNotes.concat(elem.note.id)
-    }));
-  };
-  logout = () => {
-    this.setState({ redirect: true });
-  };
-  render() {
-    const { redirect } = this.state;
-    if (redirect) {
-      return <Redirect to="/login" from="/notes" />;
-    }
-    return (
-      <div id="container">
-        <input
-          type="button"
-          onClick={this.logout}
-          name="exit"
-          className="primary"
-          id="logout"
-        />
-        <AddButton onAdd={this.addNote} />
-        <NoteList notes={this.state.notes} onDelete={this.deleteNote} />
-      </div>
-    );
+    setNotes(notes.filter(elem => elem !== note));
   }
+
+  async function addNote(note) {
+    const elem = await noteService.addNote({ value: note });
+    setNotes(notes.concat(elem.note.id));
+  }
+  function logout() {
+    setRedirect(true);
+  }
+
+  if (redirect) {
+    return <Redirect to="/login" from="/notes" />;
+  }
+  return (
+    <div id="container">
+      <input
+        type="button"
+        onClick={logout}
+        name="exit"
+        className="primary"
+        id="logout"
+      />
+      <AddButton onAdd={addNote} />
+      <NoteList notes={notes} onDelete={deleteNote} />
+    </div>
+  );
 }
-export default App;
