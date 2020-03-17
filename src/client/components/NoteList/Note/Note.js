@@ -103,19 +103,13 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
               size="small"
               aria-label="contained primary button group"
             >
-              <IconButton edge="end">
-                <DoneIcon
-                  className="addNoteInput edit-icon"
-                  size="small"
-                  color="primary"
-                  onClick={editItem}
-                />
+              <IconButton edge="end" className="edit-icon">
+                <DoneIcon size="small" color="primary" onClick={editItem} />
               </IconButton>
-              <IconButton edge="end">
+              <IconButton edge="end" className="edit-icon">
                 <CloseSharpIcon
                   color="error"
                   size="small"
-                  className="closeEditItem edit-icon"
                   onClick={closeEditItem}
                 />
               </IconButton>
