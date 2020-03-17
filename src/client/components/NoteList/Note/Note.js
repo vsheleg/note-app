@@ -16,12 +16,12 @@ import "../../../pages/signup/signup.css";
 
 export default function Note({ note, onDelete, typeOfNotes, access }) {
   const [editInput, setEditInput] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [content, setContent] = useState("");
-  const [popover, setPopover] = useState(false);
   const [title, setTitle] = useState(false);
   const editInputRef = useRef(null);
+  const iconRef = React.useRef();
   document.title = "Notes";
-  console.log(popover);
   const updateItems = () => {
     noteService.loadNote(note).then(response => {
       setContent(response.content);
@@ -31,13 +31,13 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
 
   useEffect(() => {
     updateItems();
-  }, [editInput, typeOfNotes, popover, title]);
+  }, [editInput, typeOfNotes, anchorEl, title]);
 
   function deleteItem() {
     onDelete(note);
   }
   function shareNote() {
-    setPopover(true);
+    setAnchorEl(iconRef.current);
     const link = `https://notes-app0.herokuapp.com/${note}`;
     var textarea = document.createElement("textarea");
     document.body.appendChild(textarea);
@@ -45,6 +45,10 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
+    setTimeout(closePopover, 500);
+  }
+  function closePopover() {
+    setAnchorEl(null);
   }
   function closeEditItem() {
     setEditInput(false);
@@ -54,6 +58,7 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
       setEditInput(true);
     }
   }
+
   async function editItem() {
     const newValue = editInputRef.current.value;
     await noteService.editNote({ val: newValue }, note);
@@ -65,7 +70,7 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
     return (
       <div className="note-section">
         <div className="note">
-        <span id="title">{title || note}</span>
+          <span id="title">{title || note}</span>
           <hr id="title-line" />
           <div className="note-content">{content}</div>
         </div>
@@ -73,77 +78,82 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
     );
   }
 
-    return (
-      <div className="note-section">
-        <div className="note">
-          <span id="title">{title || note}</span>
-          <hr id="title-line" />
-          {editInput ? ( <div><div className="note-content">  <input
-              type="text"
-              placeholder="Enter new note"
-              name="editNote"
-              id="editNote"
-              autoFocus
-              value={content}
-              ref={editInputRef}
-            /></div>
-          <ButtonGroup
-            variant="contained"
-            color="primary"
-            size="small"
-            aria-label="contained primary button group"
-          >
-              <IconButton edge="end">
-              <DoneIcon
-                className="addNoteInput edit-icon"
-                size="small"
-                color="primary"
-                onClick={editItem}
+  return (
+    <div className="note-section">
+      <div className="note">
+        <span id="title">{title || note}</span>
+        <hr id="title-line" />
+        {editInput ? (
+          <div>
+            <div className="note-content">
+              {" "}
+              <input
+                type="text"
+                placeholder="Enter new note"
+                name="editNote"
+                id="editNote"
+                autoFocus
+                value={content}
+                ref={editInputRef}
               />
-            </IconButton>
-            <IconButton edge="end">
-              <CloseSharpIcon
-                color="error"
-                size="small"
-                className="closeEditItem edit-icon"
-                onClick={closeEditItem}
-              />
-            </IconButton></ButtonGroup></div>) : <div>
+            </div>
+            <ButtonGroup
+              variant="contained"
+              color="primary"
+              size="small"
+              aria-label="contained primary button group"
+            >
+              <IconButton edge="end" className="edit-icon">
+                <DoneIcon size="small" color="primary" onClick={editItem} />
+              </IconButton>
+              <IconButton edge="end" className="edit-icon">
+                <CloseSharpIcon
+                  color="error"
+                  size="small"
+                  onClick={closeEditItem}
+                />
+              </IconButton>
+            </ButtonGroup>
+          </div>
+        ) : (
+          <div>
             <div className="note-content">{content}</div>
-            <ButtonGroup     variant="contained"
-            color="primary"
-            aria-label="contained primary button group"
-            size="small">
+            <ButtonGroup
+              variant="contained"
+              color="primary"
+              aria-label="contained primary button group"
+              size="small"
+            >
               <IconButton
-              className="icon-button"
-              onClick={showEditItem}
-              color="default"
-              name="edit"
-            >
-              <EditTwoToneIcon />
-            </IconButton>
-            <IconButton
-              className="icon-button"
-              aria-label="delete"
-              color="default"
-              onClick={deleteItem}
-              edge="end"
-              name="delete"
-            >
-              <DeleteIcon />
-            </IconButton>
-            <IconButton
-              onClick={shareNote}
-              className="icon-button"
-              color="default"
-              edge="end"
-              name="share"
-            >
-              <ShareIcon />
-            </IconButton>
-            {popover ? (
-              <Modal>
+                className="icon-button"
+                onClick={showEditItem}
+                color="default"
+                name="edit"
+              >
+                <EditTwoToneIcon />
+              </IconButton>
+              <IconButton
+                className="icon-button"
+                aria-label="delete"
+                color="default"
+                onClick={deleteItem}
+                edge="end"
+                name="delete"
+              >
+                <DeleteIcon />
+              </IconButton>
+              <IconButton
+                ref={iconRef}
+                onClick={shareNote}
+                className="icon-button"
+                color="default"
+                edge="end"
+                name="share"
+              >
+                <ShareIcon />
                 <Popover
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -155,10 +165,11 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
                 >
                   Copied!
                 </Popover>
-              </Modal>
-      
-            ) : null}</ButtonGroup>
-            </div>}
-            </div>
+              </IconButton>
+            </ButtonGroup>
           </div>
-    )}
+        )}
+      </div>
+    </div>
+  );
+}
