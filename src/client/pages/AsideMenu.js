@@ -29,7 +29,7 @@ export default function AsideMenu({ access }) {
   if (myNotes) {
     return <Redirect to="/my-notes" from="/notes" />;
   }
-  if (access) {
+  if (access) { //if user is logged
     return (
       <div>
         <Drawer variant="permanent" open="true" anchor="left" className="menu">
