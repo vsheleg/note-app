@@ -1,20 +1,11 @@
 
-input[type=text] {
-    padding: 6px 12px;
-
-  }
-input[type=button] {
-    padding: 6px 12px;
-
+.addNoteInput {
+  padding: 8px 11px 7px;
+  width:70%;
 }
-input[type=text]:focus {
-    border: 3px solid rgb(145, 145, 145);
-  }
-input#addNote {
-  
-
-  height:20px;
+.addTitleInput {
+  padding: 8px 11px 7px;
 }
-input#plus {
-  padding: 8px 16px;
+.buttonGroup {
+  margin-top: 20px;
 }

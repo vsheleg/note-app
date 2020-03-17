@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken"),
   repository = require("../repositories/user.repository");
 
 async function resolveUser(req, res, next) {
-  const { authorization: token } = req.headers;
+  const token = req.headers.authorization.split(" ")[1];
   const userId = token ? jwt.decode(token) : null;
   req.user = userId ? await repository.findUser(userId) : null;
   next();

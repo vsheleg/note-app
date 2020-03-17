@@ -1,60 +1,86 @@
 :root {
     --main-note-color:#f8dfc2;
     --add-theme-color:#013ca6;
-    --main-font: 'Podkova';
+    --main-font: 'Roboto';
+}
+
+body {
+    text-align:center;
 }
 hr#title-line {
-    width: 165px;
-    color:black;
+    width: 95%;
+    background-color: grey;
+    border: none;
+    height:1px;
+}
+.edit-icon {
+width: 50%;
 }
 #title {
     font-family: var(--main-font);
     font-size: larger;
     color:grey;
     padding: 3px 8px;
-   
 }
 
 .primary {
     cursor: pointer;
-
     border: none;
-    font: inherit;
-    color: inherit;
-    background-color: transparent;
-      font-family:var(--main-font);
-      background-color: var(--add-theme-color);
-      padding: 10px 18px;
-      color:white;
+    font-family:var(--main-font);
+    background-color: var(--add-theme-color);
+    color:white;
+
+    padding: 10px 18px;
+    
   }
 .note{
-    margin-right:8px;
-    font-family: var(--main-font);
     height:170px;
     display: block;
+    margin-right:8px;
+    padding: 5px 10px 15px 5px;
+    
+    font-family: var(--main-font);
+
     border-radius: 5%;
     border: 2px solid grey;
-    padding: 10px;
+
     background-color:var(--main-note-color);
 }
 
 input#editNote {    
-    float:right;
+text-align: center;
     display: block;
-    width:80px;
-    position: relative;
-}
-.note-content {
-    display: block;
-    word-wrap: break-word;
-    width: 150px;
-    background-color: var(--main-note-color);
-    height: 100px;
-    border-radius: 3%;
-    white-space: normal;
-    padding:5px;
+   width:100%;
+   border:none;
+   height:100%;
+   background-color:white;
+
 }
 
+input#editNote:enabled {
+    background-color:white;
+    border:none;
+    font-size: medium;
+    outline: none;
+    font-family: var(--main-font);
+}
+
+
+.note-content {
+    display: block;
+    padding:5px;
+    word-wrap: break-word;
+    width: 90%;
+    height: 100px;
+    background-color: var(--main-note-color);
+    border-radius: 3%;
+    white-space: normal;
+    text-align: center;
+
+}
+.shared-note {
+    width:200px;
+}
 li {
     width:200px;
     list-style-type: none;    
@@ -64,29 +90,27 @@ ul {
     padding:0;
     list-style-type: none;
 }
-input[name="delete"] {
-    display:block;
-    background-image: url('images/cross.png');
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: 10px 10px;
-    background-position: center;
-    width:10px;
-    height:25px;
-    float:right;
-    border:1px solid var(--add-theme-color);
+.icon-button {
+    float: right;
 }
 input[name="edit"] {
     display:block;
-    background-image: url('images/edit.png');
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: 10px 10px;
-    background-position: center;
     width:20px;
     height:25px;
     float:right;
-    border:1px solid var(--add-theme-color);
+    border: none;
+
+    background-color: transparent;
+    background-image: url('images/edit.png');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: center;
+}
+input[name='edit']:hover {
+    cursor: pointer;
+}
+input[name='delete']:hover {
+    cursor: pointer;
 }
 input[name="edit"]:focus {
     border:3px solid var(--add-theme-color);
@@ -94,6 +118,4 @@ input[name="edit"]:focus {
 input[name="delete"]:focus {
     border:3px solid var(--add-theme-color);
 }
-body {
-    text-align:center;
-}
+

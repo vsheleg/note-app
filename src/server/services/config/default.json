@@ -1,0 +1,20 @@
+
+{
+  "development": {
+    "username": "tomkadwill",
+    "password": "1111",
+    "database": "notes-app",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "tomkadwill",
+    "password": "1111",
+    "database": "notes-app",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL"
+  }
+}
