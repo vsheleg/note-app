@@ -14,7 +14,7 @@ export default function App({ onDefineHeader, typeOfNotes }) {
   const [commonNotes, setCommonNotes] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [loggedUser, setLoggedUser] = useState(true);
- if ((window.location.pathname ==="/") && (loggedUser)){
+  if (window.location.pathname === "/" && loggedUser) {
     onDefineHeader("/notes");
   } else {
     onDefineHeader(window.location.pathname);
@@ -72,11 +72,15 @@ export default function App({ onDefineHeader, typeOfNotes }) {
   if (!loggedUser) {
     return (
       <div id="container">
-        {typeOfNotes === "all" ? (<NoteList
-          access={loggedUser}
-          notes={commonNotes}
-          onDelete={deleteNote}
-        />) : <div/>}
+        {typeOfNotes === "all" ? (
+          <NoteList
+            access={loggedUser}
+            notes={commonNotes}
+            onDelete={deleteNote}
+          />
+        ) : (
+          <div />
+        )}
         <IconButton
           size="medium"
           variant="outlined"
@@ -88,31 +92,34 @@ export default function App({ onDefineHeader, typeOfNotes }) {
       </div>
     );
   }
-    return (
-      <div id="container">
-        <div id="aside">
-          <AsideMenu access={loggedUser} />
-        </div>
-        <div id="content">
-          <input
-            type="button"
-            onClick={logout}
-            name="exit"
-            className="primary"
-            id="logout"
-          />
-          <AddButton onAdd={addNote} />
-          {typeOfNotes === "all" ? (<NoteList
+  return (
+    <div id="container">
+      <div id="aside">
+        <AsideMenu access={loggedUser} />
+      </div>
+      <div id="content">
+        <input
+          type="button"
+          onClick={logout}
+          name="exit"
+          className="primary"
+          id="logout"
+        />
+        <AddButton onAdd={addNote} />
+        {typeOfNotes === "all" ? (
+          <NoteList
             access={loggedUser}
             notes={commonNotes}
             onDelete={deleteNote}
-          />):<NoteList
-          access={loggedUser}
-          notes={personalNotes}
-          onDelete={deleteNote}
-        />}
-          
-        </div>
+          />
+        ) : (
+          <NoteList
+            access={loggedUser}
+            notes={personalNotes}
+            onDelete={deleteNote}
+          />
+        )}
       </div>
-    );
+    </div>
+  );
 }

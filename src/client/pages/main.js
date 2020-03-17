@@ -21,31 +21,31 @@ export default function Main({}) {
     }
     document.title = header;
   }
-  
-    return (
-      <Router>
-        {header=== "Notes" ? (<div id="notes-header">Notes</div>) : <Header/>}
-        <Switch>
-          <Route path="/signup">
-            <Signup onDefineHeader={defineHeader} />
-          </Route>
-          <Route exact path="/login">
-            <Signin onDefineHeader={defineHeader} />
-          </Route>
-          <Route path="/notes">
-            <App typeOfNotes="all" onDefineHeader={defineHeader} />
-          </Route>
 
-          <Route path="/my-notes">
-            <App typeOfNotes="personal" onDefineHeader={defineHeader} />
-          </Route>
-          <Route path="/:id">
-            <NotePage onDefineHeader={defineHeader} />
-          </Route>
-          <Route path="/">
-            <App typeOfNotes="all" onDefineHeader={defineHeader} />
-          </Route>
-        </Switch>
-      </Router>
-    );
+  return (
+    <Router>
+      {header === "Notes" ? <div id="notes-header">Notes</div> : <Header />}
+      <Switch>
+        <Route path="/signup">
+          <Signup onDefineHeader={defineHeader} />
+        </Route>
+        <Route exact path="/login">
+          <Signin onDefineHeader={defineHeader} />
+        </Route>
+        <Route path="/notes">
+          <App typeOfNotes="all" onDefineHeader={defineHeader} />
+        </Route>
+
+        <Route path="/my-notes">
+          <App typeOfNotes="personal" onDefineHeader={defineHeader} />
+        </Route>
+        <Route path="/:id">
+          <NotePage onDefineHeader={defineHeader} />
+        </Route>
+        <Route path="/">
+          <App typeOfNotes="all" onDefineHeader={defineHeader} />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
