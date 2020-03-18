@@ -1,20 +1,35 @@
 .menu {
-    box-shadow: 7px 5px 15px -4px rgba(214,211,214,1);
+  box-shadow: 7px 5px 15px -4px rgba(214, 211, 214, 1);
 }
 .icon {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 .header-menu {
-    height:40px;    
-    padding: 10px 0px;
+  height: 40px;
+  padding: 10px 0px;
 }
 hr {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 .menuItem {
-    margin: 20px 10px 5px 5px;
+  margin: 20px 10px 5px 5px;
 }
 .MuiDrawer-paper {
-    overflow: hidden;
+  overflow: hidden;
 }
 
+#logout {
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  background-position: center;
+
+  width: 30px;
+  height: 30px;
+  float: left;
+
+  background-color: white;
+  background-size: 30px 30px;
+  background-image: url("../components/NoteList/Note/images/logout.png");
+}
+.logout-block {
+}

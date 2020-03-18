@@ -1,7 +1,7 @@
 :root {
-  --main-note-color:#f8dfc2;
-  --add-theme-color:#013ca6;
-  --main-font: 'Roboto';
+  --main-note-color: #f8dfc2;
+  --add-theme-color: #013ca6;
+  --main-font: "Roboto";
 }
 .App {
   text-align: center;
@@ -20,28 +20,12 @@
 div#aside {
   float: left;
   width: 20%;
-
 }
 div#content {
   float: right;
   width: 80%;
 }
-div#header{
- 
-}
-#logout.primary {
-  background-repeat: no-repeat;
-  background-size: 40px 40px;
-  background-position: center;
-
-  width:50px;
-  height:50px;  
-  float:right;
-  margin-top: 20px;
-  
-  background-color: white;
-  background-image: url('NoteList/Note/images/logout.png');
-
+div#header {
 }
 
 .App-header {
@@ -68,8 +52,8 @@ div#header{
   }
 }
 #container {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 hr {
   width: 100%;
