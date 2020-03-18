@@ -5,13 +5,16 @@ import "../components/NoteList/Note/Note.css";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import { IconButton } from "@material-ui/core";
 import "./NotePage.css";
+import AsideMenu from "./AsideMenu";
 
 export default function NotePage({ onDefineHeader }) {
   const [redirect, setRedirect] = useState(false);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState(false);
   const { id } = useParams();
-  onDefineHeader("/notes");
+  if (onDefineHeader) {
+    onDefineHeader("/notes");
+  }
 
   const updateItems = () => {
     noteService.loadNote(id).then(response => {
@@ -30,23 +33,26 @@ export default function NotePage({ onDefineHeader }) {
   if (redirect) {
     return <Redirect to="/notes" />;
   }
+
   return (
-    <div className="shared-note">
-      <div className="note-section">
-        <div className="note">
-          <span id="title">{title || id}</span>
-          <hr id="title-line" />
-          <div className="note-content"> {content}</div>
+    <div>
+      <div className="shared-note">
+        <div className="note-section">
+          <div className="note">
+            <span id="title">{title || id}</span>
+            <hr id="title-line" />
+            <div className="note-content"> {content}</div>
+          </div>
         </div>
+        <IconButton
+          size="medium"
+          variant="outlined"
+          color="primary"
+          onClick={returnToNotes}
+        >
+          <KeyboardReturnIcon />
+        </IconButton>
       </div>
-      <IconButton
-        size="medium"
-        variant="outlined"
-        color="primary"
-        onClick={returnToNotes}
-      >
-        <KeyboardReturnIcon />
-      </IconButton>
     </div>
   );
 }

@@ -95,7 +95,11 @@ export default function App({ onDefineHeader, typeOfNotes }) {
   return (
     <div id="container">
       <div id="aside">
-        <AsideMenu access={loggedUser} />
+        <AsideMenu
+          commonNotes={commonNotes}
+          personalNotes={personalNotes}
+          access={loggedUser}
+        />
       </div>
       <div id="content">
         <input
