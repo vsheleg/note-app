@@ -31,7 +31,7 @@ export default function App({ onDefineHeader, typeOfNotes }) {
         setRedirect(true); //redirects to login
       } else {
         setPersonalNotes(response.personal);
-        setCommonNotes(response.common.concat(personalNotes));
+        setCommonNotes(response.common.concat(response.personal));
       }
     });
   };
