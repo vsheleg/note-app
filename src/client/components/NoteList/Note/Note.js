@@ -6,7 +6,6 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import noteService from "../../../services/note.service";
 import { Popover } from "@material-ui/core";
 import ShareIcon from "@material-ui/icons/Share";
-import { Modal } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done";
 import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 import CloseSharpIcon from "@material-ui/icons/CloseSharp";
@@ -58,6 +57,10 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
       setEditInput(true);
     }
   }
+  function onEditChange(e) {
+    const { value } = e.target;
+    setContent(value);
+  }
 
   async function editItem() {
     const newValue = editInputRef.current.value;
@@ -86,13 +89,13 @@ export default function Note({ note, onDelete, typeOfNotes, access }) {
         {editInput ? (
           <div>
             <div className="note-content">
-              {" "}
               <input
                 type="text"
                 placeholder="Enter new note"
                 name="editNote"
                 id="editNote"
                 autoFocus
+                onChange={onEditChange}
                 value={content}
                 ref={editInputRef}
               />

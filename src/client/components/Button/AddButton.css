@@ -1,11 +1,19 @@
-
 .addNoteInput {
   padding: 8px 11px 7px;
-  width:70%;
+  width: 70%;
 }
-.addTitleInput {
+.add-button {
   padding: 8px 11px 7px;
 }
 .buttonGroup {
   margin-top: 20px;
+}
+.add-content {
+  height: 200px;
+  width: 400px;
+}
+.closeModal {
+  display: block;
+  width: 10%;
+  float: right;
 }
